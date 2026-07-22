@@ -1,33 +1,42 @@
 export default function Navbar() {
     return (
-      <header className="w-full border-b border-white/10 bg-black">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+      <header className="sticky top-0 z-50 border-b border-neutral-800 bg-black/80 backdrop-blur-md">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
           {/* Logo */}
-          <h1 className="text-2xl font-bold tracking-widest text-yellow-500">
-            DCV SHOP
-          </h1>
+          <div>
+            <h1 className="text-2xl font-bold tracking-wide text-yellow-500">
+              DCV SHOP
+            </h1>
+          </div>
   
           {/* Menú */}
-          <ul className="hidden md:flex items-center gap-8 text-white">
-            <li className="cursor-pointer hover:text-yellow-500 transition-colors">
+          <nav className="hidden gap-10 text-sm font-medium text-gray-300 md:flex">
+            <a href="#" className="transition hover:text-yellow-500">
               Inicio
-            </li>
-            <li className="cursor-pointer hover:text-yellow-500 transition-colors">
+            </a>
+  
+            <a href="#" className="transition hover:text-yellow-500">
               Productos
-            </li>
-            <li className="cursor-pointer hover:text-yellow-500 transition-colors">
-              Filosofía
-            </li>
-            <li className="cursor-pointer hover:text-yellow-500 transition-colors">
+            </a>
+  
+            <a href="#" className="transition hover:text-yellow-500">
+              Categorías
+            </a>
+  
+            <a href="#" className="transition hover:text-yellow-500">
+              Nosotros
+            </a>
+  
+            <a href="#" className="transition hover:text-yellow-500">
               Contacto
-            </li>
-          </ul>
+            </a>
+          </nav>
   
           {/* Botón */}
-          <button className="rounded-full bg-yellow-500 px-5 py-2 font-semibold text-black transition hover:bg-yellow-400">
-            Comienza tu viaje
+          <button className="rounded-full border border-yellow-500 px-5 py-2 text-sm font-semibold text-yellow-500 transition hover:bg-yellow-500 hover:text-black">
+            Mi carrito
           </button>
-        </nav>
+        </div>
       </header>
     );
   }

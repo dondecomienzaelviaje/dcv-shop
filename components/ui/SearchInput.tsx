@@ -1,11 +1,16 @@
 import { Search } from "lucide-react";
+import { ChangeEvent } from "react";
 
 type SearchInputProps = {
   placeholder?: string;
+  value?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function SearchInput({
   placeholder = "Buscar productos...",
+  value,
+  onChange,
 }: SearchInputProps) {
   return (
     <div className="relative">
@@ -16,6 +21,8 @@ export default function SearchInput({
 
       <input
         type="text"
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         className="
           w-full

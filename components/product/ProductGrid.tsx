@@ -1,5 +1,5 @@
 import ProductCard from "@/components/ui/ProductCard";
-import { products } from "@/app/data/products";
+import { products } from "@/data/products";
 
 
 

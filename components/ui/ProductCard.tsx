@@ -21,7 +21,7 @@ export default function ProductCard({
           src={image}
           alt={title}
           fill
-          className="object-cover transition duration-500 group-hover:scale-105"
+          className="object-contain p-6 transition duration-500 group-hover:scale-105"
         />
 
       </div>

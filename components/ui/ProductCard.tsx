@@ -15,13 +15,14 @@ export default function ProductCard({
   return (
     <article className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-neutral-900 to-black transition-all duration-500 hover:-translate-y-3 hover:border-[#C8A04A] hover:shadow-[0_0_40px_rgba(200,160,74,0.18)]">
 
-      <div className="relative h-72 overflow-hidden">
+      <div className="flex h-72 items-center justify-center p-6">
 
         <Image
           src={image}
           alt={title}
-          fill
-          className="object-contain p-6 transition duration-500 group-hover:scale-105"
+          width={300}
+          height={300}
+          className="h-full w-full object-contain transition duration-500 group-hover:scale-105"
         />
 
       </div>

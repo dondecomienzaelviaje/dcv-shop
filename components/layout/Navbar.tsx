@@ -89,9 +89,12 @@ export default function Navbar() {
 
           {/* Fondo */}
           <div
-            onClick={() => setMenuOpen(false)}
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+         onClick={() => setMenuOpen(false)}
+         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
           />
+
+          <div className="absolute left-0 top-0 h-full w-80 pointer-events-none">
+          </div>
 
           {/* Panel */}
           <div className="absolute left-0 top-0 h-full w-80 border-r border-neutral-800 bg-neutral-950 p-8 shadow-2xl">

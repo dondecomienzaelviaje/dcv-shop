@@ -1,49 +1,47 @@
+import Image from "next/image";
 import Button from "./Button";
 
 type ProductCardProps = {
   title: string;
   price: string;
+  image: string;
 };
 
 export default function ProductCard({
   title,
   price,
+  image,
 }: ProductCardProps) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900 transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500 hover:shadow-2xl">
+    <article className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-neutral-900 to-black transition-all duration-500 hover:-translate-y-3 hover:border-[#C8A04A] hover:shadow-[0_0_40px_rgba(200,160,74,0.18)]">
 
-      {/* Imagen / Placeholder */}
-      <div className="flex h-64 items-center justify-center bg-gradient-to-br from-neutral-800 to-black">
+      <div className="relative h-72 overflow-hidden">
 
-        <div className="text-center">
-          <p className="text-sm uppercase tracking-[0.4em] text-yellow-500">
-            DCV SHOP
-          </p>
-
-          <h3 className="mt-4 text-2xl font-bold text-white">
-            {title}
-          </h3>
-
-          <p className="mt-3 text-sm text-gray-500">
-            Imagen próximamente
-          </p>
-        </div>
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover transition duration-500 group-hover:scale-105"
+        />
 
       </div>
 
-      {/* Información */}
-      <div className="p-6">
+      <div className="space-y-6 p-7">
 
-        <p className="text-2xl font-bold text-yellow-500">
+        <h3 className="text-2xl font-black text-white">
+          {title}
+        </h3>
+
+        <p className="text-3xl font-black text-[#C8A04A]">
           {price}
         </p>
 
-        <div className="mt-6">
-          <Button>Comprar ahora</Button>
-        </div>
+        <Button>
+          Comprar ahora
+        </Button>
 
       </div>
 
-    </div>
+    </article>
   );
 }

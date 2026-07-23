@@ -4,55 +4,83 @@ import SectionTitle from "@/components/ui/SectionTitle";
 const categories = [
   {
     title: "Libros",
-    description: "Los mejores libros para transformar tu mentalidad.",
+    description: "Las ideas que transforman la manera de pensar y vivir.",
     icon: "📚",
   },
   {
     title: "Productividad",
-    description: "Herramientas para organizar tu vida y alcanzar tus metas.",
-    icon: "📝",
+    description: "Herramientas para construir hábitos y ejecutar con disciplina.",
+    icon: "⚡",
   },
   {
     title: "Accesorios",
-    description: "Productos premium para acompañar tu disciplina diaria.",
+    description: "Productos seleccionados para acompañar tu crecimiento diario.",
     icon: "☕",
   },
   {
-    title: "Digital",
-    description: "Ebooks, cursos y contenido exclusivo de DCV.",
-    icon: "💻",
+    title: "Academia",
+    description: "Cursos, ebooks y contenido exclusivo de Donde Comienza el Viaje.",
+    icon: "🎓",
   },
 ];
 
 export default function Categories() {
   return (
-    <section className="bg-black py-24 text-white">
+    <section className="bg-black py-32 text-white">
+
       <Container>
+
         <SectionTitle
           badge="CATEGORÍAS"
-          title="Todo para tu crecimiento"
-          description="Seleccionamos productos diseñados para ayudarte a construir hábitos, disciplina y una vida extraordinaria."
+          title="Todo comienza con una decisión"
+          description="Cada producto de DCV tiene un propósito: ayudarte a desarrollar disciplina, elevar tu mentalidad y construir una vida extraordinaria."
         />
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+
           {categories.map((category) => (
+
             <div
               key={category.title}
-              className="rounded-3xl border border-neutral-800 bg-neutral-900 p-8 transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500 hover:shadow-2xl"
+              className="
+                group
+                rounded-3xl
+                border
+                border-white/10
+                bg-gradient-to-b
+                from-neutral-900
+                to-black
+                p-10
+                transition-all
+                duration-500
+                hover:-translate-y-3
+                hover:border-[#C8A04A]
+                hover:shadow-[0_0_40px_rgba(200,160,74,0.15)]
+              "
             >
-              <div className="text-5xl">{category.icon}</div>
 
-              <h3 className="mt-6 text-2xl font-bold">
+              <div className="text-6xl transition duration-500 group-hover:scale-110">
+                {category.icon}
+              </div>
+
+              <h3 className="mt-8 text-2xl font-black">
                 {category.title}
               </h3>
 
-              <p className="mt-4 text-gray-400">
+              <p className="mt-5 leading-8 text-neutral-400">
                 {category.description}
               </p>
+
+              <div className="mt-8 h-px w-full bg-gradient-to-r from-[#C8A04A] to-transparent opacity-40" />
+
             </div>
+
           ))}
+
         </div>
+
       </Container>
+
     </section>
   );
 }

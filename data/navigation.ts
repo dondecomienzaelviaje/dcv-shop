@@ -1,4 +1,3 @@
-console.log("NAVIGATION CARGADO");
 export const navigation = [
     {
       name: "Inicio",

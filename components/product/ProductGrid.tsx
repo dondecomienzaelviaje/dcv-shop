@@ -17,6 +17,7 @@ export default function ProductGrid({
             title={product.title}
             price={product.price}
             image={product.image}
+            handle={product.title.toLowerCase().replace(/\s+/g, "-")}
           />
         ))}
       </div>

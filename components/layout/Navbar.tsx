@@ -19,16 +19,12 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ================= HEADER ================= */}
-
       <header className="sticky top-0 z-50 border-b border-neutral-800/50 bg-black/80 backdrop-blur-xl">
         <Container>
           <div className="flex h-24 items-center justify-between">
 
-            {/* Logo */}
             <Logo />
 
-            {/* Menú Desktop */}
             <nav className="hidden items-center gap-10 text-sm font-medium uppercase tracking-wider md:flex">
               {navigation.map((item) => (
                 <Link
@@ -41,10 +37,8 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Acciones */}
             <div className="flex items-center gap-6">
 
-              {/* Menú Mobile */}
               <button
                 onClick={() => setMenuOpen(true)}
                 className="transition hover:text-[#C8A04A] md:hidden"
@@ -52,12 +46,10 @@ export default function Navbar() {
                 <Menu size={28} />
               </button>
 
-              {/* Buscar */}
               <button className="transition hover:text-[#C8A04A]">
                 <Search size={22} />
               </button>
 
-              {/* Carrito */}
               <button
                 onClick={() => setCartOpen(true)}
                 className="relative transition hover:text-[#C8A04A]"
@@ -75,31 +67,21 @@ export default function Navbar() {
         </Container>
       </header>
 
-      {/* ================= CARRITO ================= */}
-
       <CartDrawer
         open={cartOpen}
         onClose={() => setCartOpen(false)}
       />
 
-      {/* ================= MENÚ MOBILE ================= */}
-
       {menuOpen && (
         <div className="fixed inset-0 z-[9999] md:hidden">
 
-          {/* Fondo */}
           <div
-         onClick={() => setMenuOpen(false)}
-         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setMenuOpen(false)}
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
           />
 
-          <div className="absolute left-0 top-0 h-full w-80 pointer-events-none">
-          </div>
-
-          {/* Panel */}
           <div className="absolute left-0 top-0 h-full w-80 border-r border-neutral-800 bg-neutral-950 p-8 shadow-2xl">
 
-            {/* Encabezado */}
             <div className="mb-10 flex items-center justify-between">
 
               <div>
@@ -125,7 +107,6 @@ export default function Navbar() {
 
             </div>
 
-            {/* Navegación */}
             <nav className="flex flex-col gap-3">
 
               {navigation.map((item) => (
@@ -141,7 +122,6 @@ export default function Navbar() {
 
             </nav>
 
-            {/* Botón */}
             <div className="mt-12">
 
               <button className="w-full rounded-xl bg-[#C8A04A] py-4 text-sm font-bold uppercase tracking-[0.25em] text-black transition-all duration-300 hover:bg-[#D7AF56]">

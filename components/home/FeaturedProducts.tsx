@@ -1,51 +1,32 @@
 import Container from "@/components/ui/Container";
 import ProductCard from "@/components/ui/ProductCard";
 import SectionTitle from "@/components/ui/SectionTitle";
+import { getProducts } from "@/lib/products";
 
-const products = [
-  {
-    id: 1,
-    title: "Hábitos Atómicos",
-    price: "$89.900",
-    image: "/products/habitos-atomicos.png",
-  },
-  {
-    id: 2,
-    title: "Agenda DCV 2027",
-    price: "$59.900",
-    image: "/products/agenda-dcv.png",
-  },
-  {
-    id: 3,
-    title: "Mug Modo Disciplina",
-    price: "$39.900",
-    image: "/products/taza-disciplina.png",
-  },
-  {
-    id: 4,
-    title: "Kit Productividad",
-    price: "$129.900",
-    image: "/products/kit-productividad.png",
-  },
-];
+export default async function FeaturedProducts() {
+  const products = await getProducts();
 
-export default function FeaturedProducts() {
   return (
     <section className="bg-neutral-950 py-32 text-white">
       <Container>
         <SectionTitle
           badge="PRODUCTOS DESTACADOS"
-          title="Herramientas para construir una vida extraordinaria"
-          description="Cada producto de DCV ha sido seleccionado para ayudarte a desarrollar disciplina, fortalecer tu mentalidad y avanzar todos los días."
+          title="Nuestros Productos"
+          description="Productos seleccionados para potenciar tu estilo de vida, productividad y crecimiento."
         />
 
-        <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {products.map((product) => (
+        <div className="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {products.map((product: any) => (
             <ProductCard
               key={product.id}
+              handle={product.handle}
               title={product.title}
-              price={product.price}
-              image={product.image}
+              price={new Intl.NumberFormat("es-CO", {
+                style: "currency",
+                currency: "COP",
+                maximumFractionDigits: 0,
+              }).format(Number(product.priceRange.minVariantPrice.amount))}
+              image={product.featuredImage?.url || "/placeholder-product.png"}
             />
           ))}
         </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import Button from "./Button";
 
@@ -5,33 +6,40 @@ type ProductCardProps = {
   title: string;
   price: string;
   image: string;
+  handle: string;
 };
 
 export default function ProductCard({
   title,
   price,
   image,
+  handle,
 }: ProductCardProps) {
   return (
-    <article className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-neutral-900 to-black transition-all duration-500 hover:-translate-y-3 hover:border-[#C8A04A] hover:shadow-[0_0_40px_rgba(200,160,74,0.18)]">
+    <article className="group overflow-hidden rounded-3xl border border-white/10 bg-[#111] transition-all duration-500 hover:-translate-y-2 hover:border-[#C8A04A]">
 
-      <div className="flex h-72 items-center justify-center p-6">
+      <Link href={`/products/${handle}`}>
 
-        <Image
-          src={image}
-          alt={title}
-          width={300}
-          height={300}
-          className="h-full w-full object-contain transition duration-500 group-hover:scale-105"
-        />
+        <div className="relative h-72 overflow-hidden bg-white">
 
-      </div>
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-contain p-6 transition duration-500 group-hover:scale-105"
+          />
 
-      <div className="space-y-6 p-7">
+        </div>
 
-        <h3 className="text-2xl font-black text-white">
-          {title}
-        </h3>
+      </Link>
+
+      <div className="space-y-5 p-6">
+
+        <Link href={`/products/${handle}`}>
+          <h3 className="line-clamp-2 min-h-[56px] cursor-pointer text-lg font-semibold text-white hover:text-[#C8A04A]">
+            {title}
+          </h3>
+        </Link>
 
         <p className="text-3xl font-black text-[#C8A04A]">
           {price}

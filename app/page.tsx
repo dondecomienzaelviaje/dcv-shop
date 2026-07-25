@@ -1,17 +1,17 @@
-import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/home/Hero";
 import Categories from "@/components/home/Categories";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
-import Footer from "@/components/layout/Footer";
+import Benefits from "@/components/home/Benefits";
+import Philosophy from "@/components/home/Philosophy";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
+    <main className="pt-24">
       <Hero />
       <Categories />
       <FeaturedProducts />
-      <Footer />
-    </>
+      <Benefits />
+      <Philosophy />
+    </main>
   );
 }

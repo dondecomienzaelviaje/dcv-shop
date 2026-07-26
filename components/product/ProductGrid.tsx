@@ -1,8 +1,22 @@
 import ProductCard from "@/components/ui/ProductCard";
-import { Product } from "@/data/products";
+
+type ShopifyProduct = {
+  id: string;
+  title: string;
+  handle: string;
+  featuredImage?: {
+    url: string;
+    altText?: string | null;
+  };
+  priceRange: {
+    minVariantPrice: {
+      amount: string;
+    };
+  };
+};
 
 type ProductGridProps = {
-  products: Product[];
+  products: ShopifyProduct[];
 };
 
 export default function ProductGrid({
@@ -14,10 +28,19 @@ export default function ProductGrid({
         {products.map((product) => (
           <ProductCard
             key={product.id}
+            handle={product.handle}
             title={product.title}
-            price={product.price}
-            image={product.image}
-            handle={product.title.toLowerCase().replace(/\s+/g, "-")}
+            price={new Intl.NumberFormat("es-CO", {
+              style: "currency",
+              currency: "COP",
+              maximumFractionDigits: 0,
+            }).format(
+              Number(product.priceRange.minVariantPrice.amount)
+            )}
+            image={
+              product.featuredImage?.url ??
+              "/placeholder-product.png"
+            }
           />
         ))}
       </div>

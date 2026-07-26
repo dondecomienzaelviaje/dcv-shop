@@ -19,7 +19,6 @@ export default function ProductCard({
     <article className="group overflow-hidden rounded-3xl border border-white/10 bg-[#111] transition-all duration-500 hover:-translate-y-2 hover:border-[#C8A04A]">
 
       <Link href={`/products/${handle}`}>
-
         <div className="relative h-72 overflow-hidden bg-white">
 
           <Image
@@ -30,7 +29,6 @@ export default function ProductCard({
           />
 
         </div>
-
       </Link>
 
       <div className="space-y-5 p-6">
@@ -45,9 +43,11 @@ export default function ProductCard({
           {price}
         </p>
 
-        <Button>
-          Comprar ahora
-        </Button>
+        <Link href={`/products/${handle}`}>
+          <Button>
+            Comprar ahora
+          </Button>
+        </Link>
 
       </div>
 

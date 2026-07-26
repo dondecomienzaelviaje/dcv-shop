@@ -2,10 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ShoppingCart, Search, Menu, X } from "lucide-react";
+import {
+  ShoppingCart,
+  Search,
+  Menu,
+  X,
+} from "lucide-react";
 
 import Container from "@/components/ui/Container";
 import CartDrawer from "@/components/cart/CartDrawer";
+import SearchModal from "@/components/search/SearchModal";
 import Logo from "./Logo";
 
 import { navigation } from "@/data/navigation";
@@ -14,6 +20,7 @@ import { useCartStore } from "@/store/cartStore";
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const items = useCartStore((state) => state.items);
 
@@ -46,7 +53,10 @@ export default function Navbar() {
                 <Menu size={28} />
               </button>
 
-              <button className="transition hover:text-[#C8A04A]">
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="transition hover:text-[#C8A04A]"
+              >
                 <Search size={22} />
               </button>
 
@@ -59,6 +69,7 @@ export default function Navbar() {
                 <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#C8A04A] text-xs font-bold text-black">
                   {items.length}
                 </span>
+
               </button>
 
             </div>
@@ -66,6 +77,11 @@ export default function Navbar() {
           </div>
         </Container>
       </header>
+
+      <SearchModal
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+      />
 
       <CartDrawer
         open={cartOpen}

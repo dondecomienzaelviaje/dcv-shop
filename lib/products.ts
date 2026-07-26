@@ -7,6 +7,7 @@ query GetProducts {
       id
       title
       handle
+      productType
       description
 
       featuredImage {
@@ -45,6 +46,7 @@ query GetProduct($handle: String!) {
     id
     title
     handle
+    productType
     description
 
     featuredImage {

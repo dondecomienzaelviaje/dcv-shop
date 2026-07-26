@@ -1,4 +1,3 @@
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProductsClient from "./ProductsClient";
 
@@ -9,7 +8,7 @@ export default async function ProductsPage() {
 
   return (
     <>
-      <Navbar />
+      
 
       <main className="bg-black pb-24 pt-32 text-white">
         <div className="mx-auto max-w-7xl px-6">

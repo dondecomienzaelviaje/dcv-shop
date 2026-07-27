@@ -19,8 +19,13 @@ export default function Philosophy() {
             mismo.
           </p>
 
-          <div className="mt-12">
-            <Button>Conoce nuestra filosofía</Button>
+          <div className="mt-12 flex justify-center">
+            <Button
+              href="/philosophy"
+              variant="primary"
+            >
+              Conoce nuestra filosofía
+            </Button>
           </div>
         </div>
       </Container>

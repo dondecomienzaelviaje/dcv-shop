@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 
@@ -6,30 +7,35 @@ const categories = [
     title: "Libros",
     description: "Las ideas que transforman la manera de pensar y vivir.",
     icon: "📚",
+    href: "/products?category=Libros",
   },
   {
     title: "Productividad",
-    description: "Herramientas para construir hábitos y ejecutar con disciplina.",
+    description:
+      "Herramientas para construir hábitos y ejecutar con disciplina.",
     icon: "⚡",
+    href: "/products?category=Productividad",
   },
   {
     title: "Accesorios",
-    description: "Productos seleccionados para acompañar tu crecimiento diario.",
+    description:
+      "Productos seleccionados para acompañar tu crecimiento diario.",
     icon: "☕",
+    href: "/products?category=Accesorios",
   },
   {
     title: "Academia",
-    description: "Cursos, ebooks y contenido exclusivo de Donde Comienza el Viaje.",
+    description:
+      "Cursos, ebooks y contenido exclusivo de Donde Comienza el Viaje.",
     icon: "🎓",
+    href: "/academy",
   },
 ];
 
 export default function Categories() {
   return (
     <section className="bg-black py-32 text-white">
-
       <Container>
-
         <SectionTitle
           badge="CATEGORÍAS"
           title="Todo comienza con una decisión"
@@ -37,11 +43,10 @@ export default function Categories() {
         />
 
         <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-
           {categories.map((category) => (
-
-            <div
+            <Link
               key={category.title}
+              href={category.href}
               className="
                 group
                 rounded-3xl
@@ -58,7 +63,6 @@ export default function Categories() {
                 hover:shadow-[0_0_40px_rgba(200,160,74,0.15)]
               "
             >
-
               <div className="text-6xl transition duration-500 group-hover:scale-110">
                 {category.icon}
               </div>
@@ -72,15 +76,10 @@ export default function Categories() {
               </p>
 
               <div className="mt-8 h-px w-full bg-gradient-to-r from-[#C8A04A] to-transparent opacity-40" />
-
-            </div>
-
+            </Link>
           ))}
-
         </div>
-
       </Container>
-
     </section>
   );
 }

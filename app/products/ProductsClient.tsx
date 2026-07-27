@@ -23,6 +23,7 @@ type ShopifyProduct = {
 
 type Props = {
   products: ShopifyProduct[];
+  initialCategory?: string;
 };
 
 const normalizeText = (text: string) =>
@@ -33,10 +34,11 @@ const normalizeText = (text: string) =>
 
 export default function ProductsClient({
   products,
+  initialCategory = "Todos",
 }: Props) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] =
-    useState("Todos");
+    useState(initialCategory);
   const [sortBy, setSortBy] =
     useState("recent");
 
@@ -106,12 +108,8 @@ export default function ProductsClient({
       <ProductFilters
         search={search}
         onSearchChange={setSearch}
-        selectedCategory={
-          selectedCategory
-        }
-        onCategoryChange={
-          setSelectedCategory
-        }
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
         sortBy={sortBy}
         onSortChange={setSortBy}
       />

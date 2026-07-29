@@ -1,10 +1,10 @@
 import Container from "@/components/ui/Container";
 import ProductCard from "@/components/ui/ProductCard";
 import SectionTitle from "@/components/ui/SectionTitle";
-import { getProducts } from "@/lib/products";
+import { getFeaturedProducts } from "@/lib/products";
 
 export default async function FeaturedProducts() {
-  const products = await getProducts();
+  const products = await getFeaturedProducts();
 
   return (
     <section className="bg-neutral-950 py-32 text-white">
@@ -25,8 +25,13 @@ export default async function FeaturedProducts() {
                 style: "currency",
                 currency: "COP",
                 maximumFractionDigits: 0,
-              }).format(Number(product.priceRange.minVariantPrice.amount))}
-              image={product.featuredImage?.url || "/placeholder-product.png"}
+              }).format(
+                Number(product.priceRange.minVariantPrice.amount)
+              )}
+              image={
+                product.featuredImage?.url ||
+                "/placeholder-product.png"
+              }
             />
           ))}
         </div>

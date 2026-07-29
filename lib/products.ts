@@ -2,7 +2,47 @@ import { shopifyFetch } from "./shopify";
 
 const PRODUCTS_QUERY = `
 query GetProducts {
-  products(first: 12) {
+  products(first: 100) {
+    nodes {
+      id
+      title
+      handle
+      productType
+      description
+
+      featuredImage {
+        url
+        altText
+      }
+
+      images(first: 10) {
+        nodes {
+          url
+          altText
+        }
+      }
+
+      variants(first: 1) {
+        nodes {
+          id
+          title
+        }
+      }
+
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
+}
+`;
+
+const FEATURED_PRODUCTS_QUERY = `
+query GetFeaturedProducts {
+  products(first: 8) {
     nodes {
       id
       title
@@ -80,6 +120,11 @@ query GetProduct($handle: String!) {
 
 export async function getProducts() {
   const data = await shopifyFetch(PRODUCTS_QUERY);
+  return data.data.products.nodes;
+}
+
+export async function getFeaturedProducts() {
+  const data = await shopifyFetch(FEATURED_PRODUCTS_QUERY);
   return data.data.products.nodes;
 }
 

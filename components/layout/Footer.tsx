@@ -79,40 +79,49 @@ export default function Footer() {
           </h3>
 
           <ul className="space-y-3 text-sm text-zinc-400">
+          <li>
+  <Link href="/contacto" className="transition hover:text-white">
+    Contacto
+  </Link>
+</li>
+
             <li>
-              <Link href="#" className="transition hover:text-white">
-                Contacto
-              </Link>
+            <Link
+  href="/preguntas-frecuentes"
+  className="transition hover:text-white"
+>
+  Preguntas frecuentes
+</Link>
             </li>
 
             <li>
-              <Link href="#" className="transition hover:text-white">
-                Preguntas frecuentes
-              </Link>
+            <Link href="/envios" className="transition hover:text-white">
+  Envíos
+</Link>
             </li>
 
             <li>
-              <Link href="#" className="transition hover:text-white">
-                Envíos
-              </Link>
+            <Link href="/devoluciones" className="transition hover:text-white">
+  Devoluciones
+</Link>
             </li>
 
             <li>
-              <Link href="#" className="transition hover:text-white">
-                Devoluciones
-              </Link>
+            <Link
+  href="/politica-de-privacidad"
+  className="transition hover:text-white"
+>
+  Política de privacidad
+</Link>
             </li>
 
             <li>
-              <Link href="#" className="transition hover:text-white">
-                Política de privacidad
-              </Link>
-            </li>
-
-            <li>
-              <Link href="#" className="transition hover:text-white">
-                Términos y condiciones
-              </Link>
+            <Link
+  href="/terminos-y-condiciones"
+  className="transition hover:text-white"
+>
+  Términos y condiciones
+</Link>
             </li>
           </ul>
         </div>

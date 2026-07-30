@@ -8,46 +8,7 @@ query GetProducts {
       title
       handle
       productType
-      description
-
-      featuredImage {
-        url
-        altText
-      }
-
-      images(first: 10) {
-        nodes {
-          url
-          altText
-        }
-      }
-
-      variants(first: 1) {
-        nodes {
-          id
-          title
-        }
-      }
-
-      priceRange {
-        minVariantPrice {
-          amount
-          currencyCode
-        }
-      }
-    }
-  }
-}
-`;
-
-const FEATURED_PRODUCTS_QUERY = `
-query GetFeaturedProducts {
-  products(first: 8) {
-    nodes {
-      id
-      title
-      handle
-      productType
+      tags
       description
 
       featuredImage {
@@ -87,6 +48,7 @@ query GetProduct($handle: String!) {
     title
     handle
     productType
+    tags
     description
 
     featuredImage {
@@ -124,8 +86,11 @@ export async function getProducts() {
 }
 
 export async function getFeaturedProducts() {
-  const data = await shopifyFetch(FEATURED_PRODUCTS_QUERY);
-  return data.data.products.nodes;
+  const products = await getProducts();
+
+  return products.filter((product: any) =>
+    product.tags?.includes("featured")
+  );
 }
 
 export async function getProduct(handle: string) {

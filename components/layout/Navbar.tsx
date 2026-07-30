@@ -140,9 +140,13 @@ export default function Navbar() {
 
             <div className="mt-12">
 
-              <button className="w-full rounded-xl bg-[#C8A04A] py-4 text-sm font-bold uppercase tracking-[0.25em] text-black transition-all duration-300 hover:bg-[#D7AF56]">
-                Comenzar el viaje
-              </button>
+            <Link
+  href="/products"
+  onClick={() => setMenuOpen(false)}
+  className="block w-full rounded-xl bg-[#C8A04A] py-4 text-center text-sm font-bold uppercase tracking-[0.25em] text-black transition-all duration-300 hover:bg-[#D7AF56]"
+>
+  Comenzar el viaje
+</Link>
 
             </div>
 

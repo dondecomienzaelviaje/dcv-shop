@@ -7,8 +7,12 @@ type CategoryFilterProps = {
     "Todos",
     "Libros",
     "Papelería",
-    "Accesorios",
     "Productividad",
+    "Accesorios",
+    "Tecnología",
+    "Hidratación",
+    "Viajes",
+    "Home Office",
   ];
   
   export default function CategoryFilter({

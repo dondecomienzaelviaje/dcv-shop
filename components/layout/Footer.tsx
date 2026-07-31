@@ -26,51 +26,27 @@ export default function Footer() {
 
         {/* Explorar */}
         <div>
-          <h3 className="mb-5 text-lg font-bold">
-            Explorar
-          </h3>
+  <h3 className="mb-5 text-lg font-bold">
+    Explorar
+  </h3>
 
-          <ul className="space-y-3 text-sm text-zinc-400">
-            <li>
-              <Link href="/" className="transition hover:text-white">
-                Inicio
-              </Link>
-            </li>
+  <ul className="space-y-3 text-sm text-zinc-400">
+    <li>
+      <Link href="/" className="transition hover:text-white">
+        Inicio
+      </Link>
+    </li>
 
-            <li>
-              <Link
-                href="/products"
-                className="transition hover:text-white"
-              >
-                Productos
-              </Link>
-            </li>
-
-            <li>
-              <Link href="#" className="transition hover:text-white">
-                Libros
-              </Link>
-            </li>
-
-            <li>
-              <Link href="#" className="transition hover:text-white">
-                Papelería
-              </Link>
-            </li>
-
-            <li>
-              <Link href="#" className="transition hover:text-white">
-                Accesorios
-              </Link>
-            </li>
-
-            <li>
-              <Link href="#" className="transition hover:text-white">
-                Productividad
-              </Link>
-            </li>
-          </ul>
-        </div>
+    <li>
+      <Link
+        href="/products"
+        className="transition hover:text-white"
+      >
+        Tienda
+      </Link>
+    </li>
+  </ul>
+</div>
 
         {/* Atención */}
         <div>
@@ -79,49 +55,52 @@ export default function Footer() {
           </h3>
 
           <ul className="space-y-3 text-sm text-zinc-400">
-          <li>
-  <Link href="/contacto" className="transition hover:text-white">
-    Contacto
-  </Link>
-</li>
-
             <li>
-            <Link
-  href="/preguntas-frecuentes"
-  className="transition hover:text-white"
->
-  Preguntas frecuentes
-</Link>
+              <Link href="/contacto" className="transition hover:text-white">
+                Contacto
+              </Link>
             </li>
 
             <li>
-            <Link href="/envios" className="transition hover:text-white">
-  Envíos
-</Link>
+              <Link
+                href="/preguntas-frecuentes"
+                className="transition hover:text-white"
+              >
+                Preguntas frecuentes
+              </Link>
             </li>
 
             <li>
-            <Link href="/devoluciones" className="transition hover:text-white">
-  Devoluciones
-</Link>
+              <Link href="/envios" className="transition hover:text-white">
+                Envíos
+              </Link>
             </li>
 
             <li>
-            <Link
-  href="/politica-de-privacidad"
-  className="transition hover:text-white"
->
-  Política de privacidad
-</Link>
+              <Link
+                href="/devoluciones"
+                className="transition hover:text-white"
+              >
+                Devoluciones
+              </Link>
             </li>
 
             <li>
-            <Link
-  href="/terminos-y-condiciones"
-  className="transition hover:text-white"
->
-  Términos y condiciones
-</Link>
+              <Link
+                href="/politica-de-privacidad"
+                className="transition hover:text-white"
+              >
+                Política de privacidad
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/terminos-y-condiciones"
+                className="transition hover:text-white"
+              >
+                Términos y condiciones
+              </Link>
             </li>
           </ul>
         </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "./globals.css";
 
@@ -62,7 +63,6 @@ export const metadata: Metadata = {
     title: "DCV Shop | Donde Comienza el Viaje",
     description:
       "Productos de tecnología, hogar, fitness y bienestar para ayudarte a construir una vida extraordinaria.",
-
     images: [
       {
         url: "/og-image.jpg",
@@ -78,7 +78,6 @@ export const metadata: Metadata = {
     title: "DCV Shop | Donde Comienza el Viaje",
     description:
       "Descubre productos cuidadosamente seleccionados por DCV Corporation.",
-
     images: ["/og-image.jpg"],
   },
 };
@@ -101,6 +100,8 @@ export default function RootLayout({
         </main>
 
         <Footer />
+
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
       </body>
     </html>
   );

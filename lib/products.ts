@@ -23,10 +23,27 @@ query GetProducts {
         }
       }
 
-      variants(first: 1) {
+      variants(first: 50) {
         nodes {
           id
           title
+
+          availableForSale
+
+          selectedOptions {
+            name
+            value
+          }
+
+          price {
+            amount
+            currencyCode
+          }
+
+          image {
+            url
+            altText
+          }
         }
       }
 
@@ -63,10 +80,27 @@ query GetProduct($handle: String!) {
       }
     }
 
-    variants(first: 1) {
+    variants(first: 50) {
       nodes {
         id
         title
+
+        availableForSale
+
+        selectedOptions {
+          name
+          value
+        }
+
+        price {
+          amount
+          currencyCode
+        }
+
+        image {
+          url
+          altText
+        }
       }
     }
 

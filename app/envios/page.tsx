@@ -1,69 +1,94 @@
-export const metadata = {
-    title: "Envíos | DCV Shop",
-    description: "Información sobre tiempos de entrega, costos y cobertura de envíos de DCV Shop.",
-  };
-  
-  export default function EnviosPage() {
-    return (
-      <main className="bg-black text-white">
-        {/* Hero */}
-        <section className="border-b border-zinc-800">
-          <div className="mx-auto max-w-7xl px-6 py-20">
-            <span className="text-sm uppercase tracking-[0.3em] text-yellow-500">
-              DCV SHOP
-            </span>
-  
-            <h1 className="mt-4 text-5xl font-bold">
-              Información de envíos
-            </h1>
-  
-            <p className="mt-6 max-w-3xl text-lg text-zinc-400">
-              Queremos que conozcas cómo funciona nuestro proceso de envío para que
-              compres con total confianza.
+export default function EnviosPage() {
+  return (
+    <main className="bg-black text-white pt-32 pb-24">
+      <div className="mx-auto max-w-4xl px-6">
+        <h1 className="text-4xl font-black text-[#C8A04A] mb-8">
+          Envíos y entrega
+        </h1>
+
+        <div className="space-y-10 text-neutral-300 leading-8">
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Cobertura
+            </h2>
+
+            <p>
+              Actualmente DCV Shop realiza envíos principalmente a Estados
+              Unidos. La disponibilidad de envío puede variar según el
+              producto y la ubicación del cliente.
             </p>
-          </div>
-        </section>
-  
-        <section className="mx-auto max-w-5xl px-6 py-20 space-y-8">
-  
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
-            <h2 className="text-2xl font-bold">Cobertura</h2>
-  
-            <p className="mt-4 text-zinc-400 leading-8">
-              Actualmente realizamos envíos a todo Colombia. Algunas zonas de difícil
-              acceso pueden requerir tiempos adicionales de entrega.
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Tiempo de procesamiento
+            </h2>
+
+            <p>
+              Una vez confirmado el pago, el pedido entra en proceso de
+              preparación. Este proceso normalmente toma entre 1 y 3 días
+              hábiles antes de ser despachado por el proveedor.
             </p>
-          </div>
-  
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
-            <h2 className="text-2xl font-bold">Tiempo de entrega</h2>
-  
-            <p className="mt-4 text-zinc-400 leading-8">
-              Los pedidos suelen entregarse entre <strong>5 y 15 días hábiles</strong>,
-              dependiendo del proveedor, la ciudad de destino y la disponibilidad del
-              producto.
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Tiempo de entrega
+            </h2>
+
+            <p>
+              Los tiempos de entrega dependen del proveedor y del destino.
+              En la mayoría de los casos los pedidos son entregados entre
+              7 y 20 días hábiles.
             </p>
-          </div>
-  
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
-            <h2 className="text-2xl font-bold">Seguimiento del pedido</h2>
-  
-            <p className="mt-4 text-zinc-400 leading-8">
-              Cuando tu pedido sea despachado recibirás la información de seguimiento
-              para consultar el estado del envío.
+
+            <p className="mt-4">
+              En temporadas de alta demanda, festivos o procesos
+              aduaneros, el tiempo de entrega puede extenderse.
             </p>
-          </div>
-  
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-8">
-            <h2 className="text-2xl font-bold">Costo del envío</h2>
-  
-            <p className="mt-4 text-zinc-400 leading-8">
-              El valor del envío se calcula automáticamente durante el proceso de
-              compra según el destino y las características del pedido.
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Costos de envío
+            </h2>
+
+            <p>
+              Muchos de nuestros productos incluyen envío gratuito.
+              Cuando un producto tenga un costo de envío adicional,
+              este será mostrado durante el proceso de compra antes
+              de finalizar el pedido.
             </p>
-          </div>
-  
-        </section>
-      </main>
-    );
-  }
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Seguimiento del pedido
+            </h2>
+
+            <p>
+              Una vez el pedido sea despachado, recibirás un número de
+              seguimiento para consultar el estado del envío cuando el
+              proveedor lo tenga disponible.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Información importante
+            </h2>
+
+            <p>
+              DCV Shop trabaja con proveedores internacionales cuidadosamente
+              seleccionados para ofrecer productos de alta calidad. Por esta
+              razón, algunos pedidos pueden enviarse directamente desde el país
+              de origen del proveedor.
+            </p>
+          </section>
+
+        </div>
+      </div>
+    </main>
+  );
+}

@@ -32,11 +32,10 @@ export default async function ProductPage({ params }: Props) {
 
         <ProductInfo
           id={product.id}
-          variantId={product.variants.nodes[0].id}
           title={product.title}
           description={product.description}
-          price={Number(product.priceRange.minVariantPrice.amount)}
           image={product.featuredImage?.url ?? ""}
+          variants={product.variants.nodes}
         />
 
       </div>

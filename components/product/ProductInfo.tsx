@@ -1,25 +1,51 @@
 "use client";
 
+import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
+import VariantSelector from "./VariantSelector";
+
+type Variant = {
+  id: string;
+  title: string;
+  availableForSale: boolean;
+
+  selectedOptions: {
+    name: string;
+    value: string;
+  }[];
+
+  price: {
+    amount: string;
+    currencyCode: string;
+  };
+
+  image?: {
+    url: string;
+    altText?: string;
+  } | null;
+};
 
 type Props = {
   id: string;
-  variantId: string;
+  variants: Variant[];
   title: string;
   description: string;
-  price: number;
   image: string;
 };
 
 export default function ProductInfo({
   id,
-  variantId,
+  variants,
   title,
   description,
-  price,
   image,
 }: Props) {
   const addItem = useCartStore((state) => state.addItem);
+
+  const [selectedVariant, setSelectedVariant] =
+    useState(variants[0]);
+
+  const price = Number(selectedVariant.price.amount);
 
   return (
     <div>
@@ -39,14 +65,22 @@ export default function ProductInfo({
         {description}
       </p>
 
+      <VariantSelector
+        variants={variants}
+        selectedVariant={selectedVariant}
+        onChange={setSelectedVariant}
+      />
+
       <button
         onClick={() =>
           addItem({
             id,
-            variantId,
+            variantId: selectedVariant.id,
             title,
             price,
-            image,
+            image:
+              selectedVariant.image?.url ??
+              image,
           })
         }
         className="rounded-xl bg-[#C8A04A] px-10 py-4 font-bold text-black transition hover:bg-[#D7AF56]"

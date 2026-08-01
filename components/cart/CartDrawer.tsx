@@ -141,7 +141,7 @@ async function handleCheckout() {
                     <div className="mt-4 flex items-center gap-2">
 
                       <button
-                        onClick={() => decreaseQuantity(item.id)}
+                        onClick={() => decreaseQuantity(item.variantId)}
                         className="rounded-lg bg-neutral-800 p-2 hover:bg-neutral-700"
                       >
                         <Minus size={16} />
@@ -152,14 +152,14 @@ async function handleCheckout() {
                       </span>
 
                       <button
-                        onClick={() => increaseQuantity(item.id)}
+                        onClick={() => increaseQuantity(item.variantId)}
                         className="rounded-lg bg-neutral-800 p-2 hover:bg-neutral-700"
                       >
                         <Plus size={16} />
                       </button>
 
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(item.variantId)}
                         className="ml-auto text-red-500 hover:text-red-400"
                       >
                         <Trash2 size={18} />

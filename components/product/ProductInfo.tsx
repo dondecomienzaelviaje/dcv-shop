@@ -56,7 +56,9 @@ export default function ProductInfo({
       <VariantSelector
         variants={variants}
         selectedVariant={selectedVariant}
-        onChange={setSelectedVariant}
+        onChange={(variant) => {
+          setSelectedVariant(variant);
+        }}
       />
 
       <button

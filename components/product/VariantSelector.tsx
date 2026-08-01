@@ -1,13 +1,24 @@
 "use client";
 
-type Variant = {
+export type Variant = {
   id: string;
   title: string;
   availableForSale: boolean;
+
   selectedOptions: {
     name: string;
     value: string;
   }[];
+
+  price: {
+    amount: string;
+    currencyCode: string;
+  };
+
+  image?: {
+    url: string;
+    altText?: string | null;
+  } | null;
 };
 
 type Props = {
@@ -21,10 +32,12 @@ export default function VariantSelector({
   selectedVariant,
   onChange,
 }: Props) {
-  if (variants.length <= 1) return null;
+  if (variants.length <= 1) {
+    return null;
+  }
 
   const optionName =
-    variants[0].selectedOptions[0]?.name || "Opción";
+    variants[0]?.selectedOptions?.[0]?.name || "Opción";
 
   return (
     <div className="mb-10">
@@ -34,11 +47,13 @@ export default function VariantSelector({
 
       <div className="flex flex-wrap gap-3">
         {variants.map((variant) => {
-          const active = variant.id === selectedVariant.id;
+          const active =
+            variant.id === selectedVariant.id;
 
           return (
             <button
               key={variant.id}
+              type="button"
               onClick={() => onChange(variant)}
               disabled={!variant.availableForSale}
               className={`rounded-xl border px-5 py-3 transition-all duration-300 ${
@@ -51,7 +66,8 @@ export default function VariantSelector({
                   : ""
               }`}
             >
-              {variant.selectedOptions[0]?.value}
+              {variant.selectedOptions?.[0]?.value ||
+                variant.title}
             </button>
           );
         })}

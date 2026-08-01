@@ -2,28 +2,9 @@
 
 import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
-import VariantSelector from "./VariantSelector";
-
-type Variant = {
-  id: string;
-  title: string;
-  availableForSale: boolean;
-
-  selectedOptions: {
-    name: string;
-    value: string;
-  }[];
-
-  price: {
-    amount: string;
-    currencyCode: string;
-  };
-
-  image?: {
-    url: string;
-    altText?: string;
-  } | null;
-};
+import VariantSelector, {
+  type Variant,
+} from "./VariantSelector";
 
 type Props = {
   id: string;
@@ -40,12 +21,19 @@ export default function ProductInfo({
   description,
   image,
 }: Props) {
-  const addItem = useCartStore((state) => state.addItem);
+  const addItem = useCartStore(
+    (state) => state.addItem
+  );
 
   const [selectedVariant, setSelectedVariant] =
-    useState(variants[0]);
+    useState<Variant>(variants[0]);
 
-  const price = Number(selectedVariant.price.amount);
+  const price = Number(
+    selectedVariant.price.amount
+  );
+
+  const selectedImage =
+    selectedVariant.image?.url ?? image;
 
   return (
     <div>
@@ -72,20 +60,22 @@ export default function ProductInfo({
       />
 
       <button
+        type="button"
+        disabled={!selectedVariant.availableForSale}
         onClick={() =>
           addItem({
             id,
             variantId: selectedVariant.id,
             title,
             price,
-            image:
-              selectedVariant.image?.url ??
-              image,
+            image: selectedImage,
           })
         }
-        className="rounded-xl bg-[#C8A04A] px-10 py-4 font-bold text-black transition hover:bg-[#D7AF56]"
+        className="rounded-xl bg-[#C8A04A] px-10 py-4 font-bold text-black transition hover:bg-[#D7AF56] disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Añadir al carrito
+        {selectedVariant.availableForSale
+          ? "Añadir al carrito"
+          : "Agotado"}
       </button>
     </div>
   );

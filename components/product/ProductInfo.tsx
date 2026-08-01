@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
+import { useUIStore } from "@/store/uiStore";
 import VariantSelector, {
   type Variant,
 } from "./VariantSelector";
+import AddToCartToast from "@/components/ui/AddToCartToast";
 
 type Props = {
   id: string;
@@ -25,8 +27,14 @@ export default function ProductInfo({
     (state) => state.addItem
   );
 
+  const openCart = useUIStore(
+    (state) => state.openCart
+  );
+
   const [selectedVariant, setSelectedVariant] =
     useState<Variant>(variants[0]);
+
+  const [toastOpen, setToastOpen] = useState(false);
 
   const price = Number(
     selectedVariant.price.amount
@@ -64,21 +72,36 @@ export default function ProductInfo({
       <button
         type="button"
         disabled={!selectedVariant.availableForSale}
-        onClick={() =>
+        onClick={() => {
           addItem({
             id,
             variantId: selectedVariant.id,
             title,
             price,
             image: selectedImage,
-          })
-        }
+          });
+
+          setToastOpen(true);
+
+          setTimeout(() => {
+            setToastOpen(false);
+          }, 4000);
+        }}
         className="rounded-xl bg-[#C8A04A] px-10 py-4 font-bold text-black transition hover:bg-[#D7AF56] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {selectedVariant.availableForSale
           ? "Añadir al carrito"
           : "Agotado"}
       </button>
+
+      <AddToCartToast
+        open={toastOpen}
+        title={title}
+        onViewCart={() => {
+          setToastOpen(false);
+          openCart();
+        }}
+      />
     </div>
   );
 }

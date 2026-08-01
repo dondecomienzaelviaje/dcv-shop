@@ -16,11 +16,15 @@ import Logo from "./Logo";
 
 import { navigation } from "@/data/navigation";
 import { useCartStore } from "@/store/cartStore";
+import { useUIStore } from "@/store/uiStore";
 
 export default function Navbar() {
-  const [cartOpen, setCartOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+
+  const cartOpen = useUIStore((state) => state.cartOpen);
+  const openCart = useUIStore((state) => state.openCart);
+  const closeCart = useUIStore((state) => state.closeCart);
 
   const items = useCartStore((state) => state.items);
 
@@ -61,7 +65,7 @@ export default function Navbar() {
               </button>
 
               <button
-                onClick={() => setCartOpen(true)}
+                onClick={openCart}
                 className="relative transition hover:text-[#C8A04A]"
               >
                 <ShoppingCart size={24} />
@@ -85,7 +89,7 @@ export default function Navbar() {
 
       <CartDrawer
         open={cartOpen}
-        onClose={() => setCartOpen(false)}
+        onClose={closeCart}
       />
 
       {menuOpen && (
@@ -140,13 +144,13 @@ export default function Navbar() {
 
             <div className="mt-12">
 
-            <Link
-  href="/products"
-  onClick={() => setMenuOpen(false)}
-  className="block w-full rounded-xl bg-[#C8A04A] py-4 text-center text-sm font-bold uppercase tracking-[0.25em] text-black transition-all duration-300 hover:bg-[#D7AF56]"
->
-  Comenzar el viaje
-</Link>
+              <Link
+                href="/products"
+                onClick={() => setMenuOpen(false)}
+                className="block w-full rounded-xl bg-[#C8A04A] py-4 text-center text-sm font-bold uppercase tracking-[0.25em] text-black transition-all duration-300 hover:bg-[#D7AF56]"
+              >
+                Comenzar el viaje
+              </Link>
 
             </div>
 

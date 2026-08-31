@@ -30,10 +30,11 @@ export default function ProductGrid({
             key={product.id}
             handle={product.handle}
             title={product.title}
-            price={new Intl.NumberFormat("es-CO", {
+            price={new Intl.NumberFormat("en-US", {
               style: "currency",
-              currency: "COP",
-              maximumFractionDigits: 0,
+              currency: "USD",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
             }).format(
               Number(product.priceRange.minVariantPrice.amount)
             )}

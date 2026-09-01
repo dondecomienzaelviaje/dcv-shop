@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
+import { formatPrice } from "@/lib/formatPrice";
 import VariantSelector, {
   type Variant,
 } from "./VariantSelector";
@@ -50,12 +51,7 @@ export default function ProductInfo({
       </h1>
 
       <p className="mb-8 text-3xl font-black text-[#C8A04A]">
-      {new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-}).format(price)}
+        {formatPrice(price)}
       </p>
 
       <p className="mb-10 text-lg leading-8 text-zinc-300">

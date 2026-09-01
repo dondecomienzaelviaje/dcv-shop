@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
+import { formatPrice } from "@/lib/formatPrice";
 
 type Product = {
   id: string;
@@ -132,21 +133,11 @@ export default function SearchModal({
                 </h3>
 
                 <p className="text-[#C8A04A]">
-
-                  {new Intl.NumberFormat(
-                    "es-CO",
-                    {
-                      style: "currency",
-                      currency: "COP",
-                      maximumFractionDigits: 0,
-                    }
-                  ).format(
+                  {formatPrice(
                     Number(
-                      product.priceRange
-                        .minVariantPrice.amount
+                      product.priceRange.minVariantPrice.amount
                     )
                   )}
-
                 </p>
 
               </div>

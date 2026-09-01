@@ -2,6 +2,7 @@ import Container from "@/components/ui/Container";
 import ProductCard from "@/components/ui/ProductCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { getFeaturedProducts } from "@/lib/products";
+import { formatPrice } from "@/lib/formatPrice";
 
 export default async function FeaturedProducts() {
   const products = await getFeaturedProducts();
@@ -21,11 +22,7 @@ export default async function FeaturedProducts() {
               key={product.id}
               handle={product.handle}
               title={product.title}
-              price={new Intl.NumberFormat("es-CO", {
-                style: "currency",
-                currency: "COP",
-                maximumFractionDigits: 0,
-              }).format(
+              price={formatPrice(
                 Number(product.priceRange.minVariantPrice.amount)
               )}
               image={

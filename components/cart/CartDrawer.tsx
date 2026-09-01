@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
 
 import { useCartStore } from "@/store/cartStore";
+import { formatPrice } from "@/lib/formatPrice";
 
 type Props = {
   open: boolean;
@@ -21,39 +22,39 @@ export default function CartDrawer({ open, onClose }: Props) {
 
   const [loading, setLoading] = useState(false);
 
-async function handleCheckout() {
-  try {
-    setLoading(true);
+  async function handleCheckout() {
+    try {
+      setLoading(true);
 
-    const response = await fetch("/api/cart", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        lines: items.map((item) => ({
-          merchandiseId: item.variantId,
-          quantity: item.quantity,
-        })),
-      }),
-    });
+      const response = await fetch("/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lines: items.map((item) => ({
+            merchandiseId: item.variantId,
+            quantity: item.quantity,
+          })),
+        }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!response.ok) {
-      console.error(data);
-      alert("No fue posible crear el checkout.");
-      return;
+      if (!response.ok) {
+        console.error(data);
+        alert("No fue posible crear el checkout.");
+        return;
+      }
+
+      window.location.href = data.checkoutUrl;
+    } catch (error) {
+      console.error(error);
+      alert("Ocurrió un error inesperado.");
+    } finally {
+      setLoading(false);
     }
-
-    window.location.href = data.checkoutUrl;
-  } catch (error) {
-    console.error(error);
-    alert("Ocurrió un error inesperado.");
-  } finally {
-    setLoading(false);
   }
-}
 
   const subtotal = items.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -131,11 +132,7 @@ async function handleCheckout() {
                     </h4>
 
                     <p className="mt-1 text-[#C8A04A]">
-                      {new Intl.NumberFormat("es-CO", {
-                        style: "currency",
-                        currency: "COP",
-                        maximumFractionDigits: 0,
-                      }).format(item.price)}
+                      {formatPrice(item.price)}
                     </p>
 
                     <div className="mt-4 flex items-center gap-2">
@@ -180,22 +177,18 @@ async function handleCheckout() {
                 <span>Subtotal</span>
 
                 <span className="text-[#C8A04A]">
-                  {new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(subtotal)}
+                  {formatPrice(subtotal)}
                 </span>
 
               </div>
 
               <button
-  onClick={handleCheckout}
-  disabled={loading}
-  className="w-full rounded-xl bg-[#C8A04A] py-4 font-bold text-black transition hover:bg-[#D7AF56] disabled:cursor-not-allowed disabled:opacity-50"
->
-  {loading ? "Redirigiendo..." : "Finalizar compra"}
-</button>
+                onClick={handleCheckout}
+                disabled={loading}
+                className="w-full rounded-xl bg-[#C8A04A] py-4 font-bold text-black transition hover:bg-[#D7AF56] disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loading ? "Redirigiendo..." : "Finalizar compra"}
+              </button>
 
             </div>
           </>

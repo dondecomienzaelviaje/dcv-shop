@@ -1,4 +1,5 @@
 import ProductCard from "@/components/ui/ProductCard";
+import { formatPrice } from "@/lib/formatPrice";
 
 type ShopifyProduct = {
   id: string;
@@ -30,12 +31,7 @@ export default function ProductGrid({
             key={product.id}
             handle={product.handle}
             title={product.title}
-            price={new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            }).format(
+            price={formatPrice(
               Number(product.priceRange.minVariantPrice.amount)
             )}
             image={

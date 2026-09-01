@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Truck } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
 import { formatPrice } from "@/lib/formatPrice";
@@ -50,9 +51,16 @@ export default function ProductInfo({
         {title}
       </h1>
 
-      <p className="mb-8 text-3xl font-black text-[#C8A04A]">
+      <p className="mb-4 text-3xl font-black text-[#C8A04A]">
         {formatPrice(price)}
       </p>
+
+      <div className="mb-8 flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-300">
+        <Truck size={20} className="shrink-0 text-[#C8A04A]" />
+        <span>
+          Enviamos a Colombia y EE. UU. — Entrega estimada: 7 a 20 días hábiles
+        </span>
+      </div>
 
       <p className="mb-10 text-lg leading-8 text-zinc-300">
         {description}

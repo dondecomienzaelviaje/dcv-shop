@@ -45,7 +45,7 @@ export default function ProductCard({
 
         <Link href={`/products/${handle}`}>
           <Button>
-            Comprar ahora
+            Ver producto
           </Button>
         </Link>
 

@@ -22,16 +22,9 @@ export default function CommunityHero() {
 
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
 
-            <button className="rounded-xl bg-[#C8A04A] px-8 py-4 font-bold text-black transition hover:bg-[#D7AF56]">
-              Unirme a la comunidad
-            </button>
-
-            <a
-  href="#beneficios"
-  className="rounded-xl border border-neutral-700 px-8 py-4 font-bold transition hover:border-[#C8A04A] hover:text-[#C8A04A]"
->
-  Conocer los beneficios
-</a>
+            <a href="#beneficios" className="rounded-xl bg-[#C8A04A] px-8 py-4 font-bold text-black transition hover:bg-[#D7AF56]">
+              Conocer los beneficios
+            </a>
 
           </div>
 

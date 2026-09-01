@@ -2,8 +2,17 @@ import ProductsClient from "./ProductsClient";
 
 import { getProducts } from "@/lib/products";
 
-export default async function ProductsPage() {
+type Props = {
+  searchParams: Promise<{
+    category?: string;
+  }>;
+};
+
+export default async function ProductsPage({
+  searchParams,
+}: Props) {
   const products = await getProducts();
+  const { category } = await searchParams;
 
   return (
     <main className="bg-black pb-24 pt-32 text-white">
@@ -22,7 +31,10 @@ export default async function ProductsPage() {
             extraordinaria.
           </p>
 
-          <ProductsClient products={products} />
+          <ProductsClient
+            products={products}
+            initialCategory={category || "Todos"}
+          />
         </div>
       </div>
     </main>

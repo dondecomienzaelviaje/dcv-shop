@@ -4,10 +4,10 @@ import SectionTitle from "@/components/ui/SectionTitle";
 
 const categories = [
   {
-    title: "Libros",
-    description: "Las ideas que transforman la manera de pensar y vivir.",
-    icon: "📚",
-    href: "/products?category=Libros",
+    title: "Tecnología",
+    description: "Herramientas inteligentes para tu día a día y tu trabajo.",
+    icon: "💻",
+    href: "/products?category=Tecnología",
   },
   {
     title: "Productividad",
@@ -26,7 +26,7 @@ const categories = [
   {
     title: "Academia",
     description:
-      "Cursos, ebooks y contenido exclusivo de Donde Comienza el Viaje.",
+      "Programas de formación en disciplina, hábitos y crecimiento personal. Muy pronto.",
     icon: "🎓",
     href: "/academy",
   },
@@ -47,21 +47,7 @@ export default function Categories() {
             <Link
               key={category.title}
               href={category.href}
-              className="
-                group
-                rounded-3xl
-                border
-                border-white/10
-                bg-gradient-to-b
-                from-neutral-900
-                to-black
-                p-10
-                transition-all
-                duration-500
-                hover:-translate-y-3
-                hover:border-[#C8A04A]
-                hover:shadow-[0_0_40px_rgba(200,160,74,0.15)]
-              "
+              className="group rounded-3xl border border-white/10 bg-gradient-to-b from-neutral-900 to-black p-10 transition-all duration-500 hover:-translate-y-3 hover:border-[#C8A04A] hover:shadow-[0_0_40px_rgba(200,160,74,0.15)]"
             >
               <div className="text-6xl transition duration-500 group-hover:scale-110">
                 {category.icon}

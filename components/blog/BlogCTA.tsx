@@ -1,6 +1,5 @@
 import Container from "@/components/ui/Container";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 export default function BlogCTA() {
   return (
@@ -26,16 +25,8 @@ export default function BlogCTA() {
           <div className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
 
             <Link
-              href="#"
-              className="inline-flex items-center gap-3 rounded-xl bg-[#C8A04A] px-8 py-4 font-bold text-black transition hover:bg-[#D7AF56]"
-            >
-              Explorar artículos
-              <ArrowRight size={20} />
-            </Link>
-
-            <Link
               href="/"
-              className="rounded-xl border border-neutral-700 px-8 py-4 font-bold transition hover:border-[#C8A04A] hover:text-[#C8A04A]"
+              className="inline-flex items-center gap-3 rounded-xl bg-[#C8A04A] px-8 py-4 font-bold text-black transition hover:bg-[#D7AF56]"
             >
               Volver al inicio
             </Link>

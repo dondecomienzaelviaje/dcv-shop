@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Container from "@/components/ui/Container";
 
 export default function PodcastHero() {
@@ -19,24 +18,6 @@ export default function PodcastHero() {
             disciplina, crecimiento personal, emprendimiento y desarrollo
             profesional para impulsar la mejor versión de ti.
           </p>
-
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-
-            <button
-              type="button"
-              className="rounded-xl bg-[#C8A04A] px-8 py-4 font-bold text-black transition hover:bg-[#D7AF56]"
-            >
-              Escuchar ahora
-            </button>
-
-            <Link
-              href="/podcast/episodes"
-              className="rounded-xl border border-neutral-700 px-8 py-4 font-bold transition hover:border-[#C8A04A] hover:text-[#C8A04A]"
-            >
-              Ver episodios
-            </Link>
-
-          </div>
         </div>
       </Container>
     </section>

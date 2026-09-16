@@ -12,6 +12,7 @@ type ShopifyProduct = {
   priceRange: {
     minVariantPrice: {
       amount: string;
+      currencyCode: string;
     };
   };
 };
@@ -32,7 +33,8 @@ export default function ProductGrid({
             handle={product.handle}
             title={product.title}
             price={formatPrice(
-              Number(product.priceRange.minVariantPrice.amount)
+              Number(product.priceRange.minVariantPrice.amount),
+              product.priceRange.minVariantPrice.currencyCode
             )}
             image={
               product.featuredImage?.url ??

@@ -1,32 +1,76 @@
-import ProductsClient from "./ProductsClient";
-import { getProducts } from "@/lib/products";
+import { cookies } from "next/headers";
+import { getProduct } from "@/lib/products";
+import ProductGallery from "@/components/product/ProductGallery";
+import ProductInfo from "@/components/product/ProductInfo";
 import type { Metadata } from "next";
 
 type Props = {
-  searchParams: Promise<{
-    category?: string;
+  params: Promise<{
+    handle: string;
   }>;
 };
 
-export const metadata: Metadata = {
-  title: "Tienda",
-  description:
-    "Explora todos los productos de DCV Shop: tecnología, home office, hidratación, viajes y accesorios seleccionados para tu productividad y crecimiento personal.",
-};
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { handle } = await params;
+  const country = (await cookies()).get("country")?.value || "CO";
+  const product = await getProduct(handle, country);
 
-export default async function ProductsPage({ searchParams }: Props) {
-  const products = await getProducts();
-  const { category } = await searchParams;
+  if (!product) {
+    return {
+      title: "Producto no encontrado",
+    };
+  }
+
+  const description =
+    product.description?.slice(0, 155) ??
+    "Descubre este producto en DCV Shop.";
+
+  return {
+    title: product.title,
+    description,
+    openGraph: {
+      title: product.title,
+      description,
+      images: product.featuredImage?.url
+        ? [{ url: product.featuredImage.url }]
+        : undefined,
+    },
+  };
+}
+
+export default async function ProductPage({ params }: Props) {
+  const { handle } = await params;
+  const country = (await cookies()).get("country")?.value || "CO";
+
+  const product = await getProduct(handle, country);
+
+  if (!product) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-black text-white">
+        Producto no encontrado.
+      </main>
+    );
+  }
 
   return (
-    <main className="bg-black pb-24 pt-32 text-white">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center">
-          <p className="text-sm uppercase tracking-[0.5em] text-[#C8A04A]">DCV SHOP</p>
-          <h1 className="mt-6 text-5xl font-black md:text-6xl">Todos nuestros productos</h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-400">Descubre herramientas diseñadas para ayudarte a construir una vida extraordinaria.</p>
-          <ProductsClient products={products} initialCategory={category || "Todos"} />
-        </div>
+    <main className="mx-auto max-w-7xl px-6 py-20 text-white">
+      <div className="grid gap-16 lg:grid-cols-2">
+
+        <ProductGallery
+          images={product.images.nodes}
+          title={product.title}
+        />
+
+        <ProductInfo
+          id={product.id}
+          title={product.title}
+          description={product.description}
+          image={product.featuredImage?.url ?? ""}
+          variants={product.variants.nodes}
+        />
+
       </div>
     </main>
   );

@@ -1,8 +1,13 @@
-export function formatPrice(amount: number) {
-    return new Intl.NumberFormat("en-US", {
+export function formatPrice(amount: number | string, currencyCode: string = "USD") {
+  const numericAmount = typeof amount === "string" ? Number(amount) : amount;
+
+  return new Intl.NumberFormat(
+    currencyCode === "COP" ? "es-CO" : "en-US",
+    {
       style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(amount);
-  }
+      currency: currencyCode,
+      minimumFractionDigits: currencyCode === "COP" ? 0 : 2,
+      maximumFractionDigits: currencyCode === "COP" ? 0 : 2,
+    }
+  ).format(numericAmount);
+}

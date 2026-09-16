@@ -61,6 +61,11 @@ export default function CartDrawer({ open, onClose }: Props) {
     0
   );
 
+  // Todos los items de un mismo carrito deberían tener la misma moneda,
+  // ya que se agregaron bajo el mismo contexto de país. Usamos la del
+  // primer item como referencia para mostrar el subtotal.
+  const cartCurrency = items[0]?.currencyCode ?? "USD";
+
   if (!open) return null;
 
   return (
@@ -132,7 +137,7 @@ export default function CartDrawer({ open, onClose }: Props) {
                     </h4>
 
                     <p className="mt-1 text-[#C8A04A]">
-                      {formatPrice(item.price)}
+                      {formatPrice(item.price, item.currencyCode)}
                     </p>
 
                     <div className="mt-4 flex items-center gap-2">
@@ -177,7 +182,7 @@ export default function CartDrawer({ open, onClose }: Props) {
                 <span>Subtotal</span>
 
                 <span className="text-[#C8A04A]">
-                  {formatPrice(subtotal)}
+                  {formatPrice(subtotal, cartCurrency)}
                 </span>
 
               </div>

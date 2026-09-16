@@ -16,6 +16,7 @@ type Product = {
   priceRange: {
     minVariantPrice: {
       amount: string;
+      currencyCode: string;
     };
   };
 };
@@ -136,7 +137,8 @@ export default function SearchModal({
                   {formatPrice(
                     Number(
                       product.priceRange.minVariantPrice.amount
-                    )
+                    ),
+                    product.priceRange.minVariantPrice.currencyCode
                   )}
                 </p>
 

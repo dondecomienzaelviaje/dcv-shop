@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import Container from "@/components/ui/Container";
 import ProductCard from "@/components/ui/ProductCard";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -5,7 +6,8 @@ import { getFeaturedProducts } from "@/lib/products";
 import { formatPrice } from "@/lib/formatPrice";
 
 export default async function FeaturedProducts() {
-  const products = await getFeaturedProducts();
+  const country = (await cookies()).get("country")?.value || "CO";
+  const products = await getFeaturedProducts(country);
 
   return (
     <section className="bg-neutral-950 py-32 text-white">
@@ -23,7 +25,8 @@ export default async function FeaturedProducts() {
               handle={product.handle}
               title={product.title}
               price={formatPrice(
-                Number(product.priceRange.minVariantPrice.amount)
+                Number(product.priceRange.minVariantPrice.amount),
+                product.priceRange.minVariantPrice.currencyCode
               )}
               image={
                 product.featuredImage?.url ||

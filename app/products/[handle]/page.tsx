@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { getProduct } from "@/lib/products";
 import ProductGallery from "@/components/product/ProductGallery";
 import ProductInfo from "@/components/product/ProductInfo";
@@ -13,7 +14,8 @@ export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
   const { handle } = await params;
-  const product = await getProduct(handle);
+  const country = (await cookies()).get("country")?.value || "CO";
+  const product = await getProduct(handle, country);
 
   if (!product) {
     return {
@@ -40,8 +42,9 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: Props) {
   const { handle } = await params;
+  const country = (await cookies()).get("country")?.value || "CO";
 
-  const product = await getProduct(handle);
+  const product = await getProduct(handle, country);
 
   if (!product) {
     return (

@@ -42,6 +42,8 @@ export default function ProductInfo({
     selectedVariant.price.amount
   );
 
+  const currencyCode = selectedVariant.price.currencyCode;
+
   const selectedImage =
     selectedVariant.image?.url ?? image;
 
@@ -52,7 +54,7 @@ export default function ProductInfo({
       </h1>
 
       <p className="mb-4 text-3xl font-black text-[#C8A04A]">
-        {formatPrice(price)}
+        {formatPrice(price, currencyCode)}
       </p>
 
       <div className="mb-8 flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-300">
@@ -83,6 +85,7 @@ export default function ProductInfo({
             variantId: selectedVariant.id,
             title,
             price,
+            currencyCode: selectedVariant.price.currencyCode,
             image: selectedImage,
           });
 

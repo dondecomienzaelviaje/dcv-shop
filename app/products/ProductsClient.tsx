@@ -16,6 +16,7 @@ type ShopifyProduct = {
   priceRange: {
     minVariantPrice: {
       amount: string;
+      currencyCode: string;
     };
   };
   productType?: string;

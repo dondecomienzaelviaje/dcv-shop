@@ -6,6 +6,7 @@ export type CartItem = {
   variantId: string;
   title: string;
   price: number;
+  currencyCode: string;
   image: string;
   quantity: number;
 };
@@ -39,14 +40,24 @@ export const useCartStore = create<CartStore>()(
 
       addItem: (item) =>
         set((state) => {
-          const existingItem = state.items.find(
+          // Si el carrito ya tiene items en una moneda distinta a la del
+          // producto que se está agregando (ej. el cliente cambió de país
+          // o usó VPN a medio camino), vaciamos el carrito antes de
+          // agregar el nuevo item. Nunca mezclamos monedas en un subtotal.
+          const currentItems =
+            state.items.length > 0 &&
+            state.items[0].currencyCode !== item.currencyCode
+              ? []
+              : state.items;
+
+          const existingItem = currentItems.find(
             (product) =>
               product.variantId === item.variantId
           );
 
           if (existingItem) {
             return {
-              items: state.items.map((product) =>
+              items: currentItems.map((product) =>
                 product.variantId === item.variantId
                   ? {
                       ...product,
@@ -60,7 +71,7 @@ export const useCartStore = create<CartStore>()(
 
           return {
             items: [
-              ...state.items,
+              ...currentItems,
               {
                 ...item,
                 quantity: 1,

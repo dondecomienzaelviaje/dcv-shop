@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { shopifyFetch } from "@/lib/shopify";
 
 const SEARCH_PRODUCTS_QUERY = `
-query SearchProducts($query: String!) {
+query SearchProducts($query: String!, $country: CountryCode!) @inContext(country: $country) {
   products(first: 8, query: $query) {
     nodes {
       id
@@ -35,12 +36,16 @@ export async function GET(request: Request) {
     return NextResponse.json([]);
   }
 
+  const country = (await cookies()).get("country")?.value || "CO";
+
   try {
     const data = await shopifyFetch(
       SEARCH_PRODUCTS_QUERY,
       {
         query: `title:*${q}*`,
-      }
+        country,
+      },
+      country
     );
 
     return NextResponse.json(

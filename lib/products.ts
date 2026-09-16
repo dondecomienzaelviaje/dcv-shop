@@ -1,7 +1,7 @@
 import { shopifyFetch } from "./shopify";
 
 const PRODUCTS_QUERY = `
-query GetProducts {
+query GetProducts($country: CountryCode!) @inContext(country: $country) {
   products(first: 100) {
     nodes {
       id
@@ -59,7 +59,7 @@ query GetProducts {
 `;
 
 const PRODUCT_QUERY = `
-query GetProduct($handle: String!) {
+query GetProduct($handle: String!, $country: CountryCode!) @inContext(country: $country) {
   product(handle: $handle) {
     id
     title
@@ -114,23 +114,21 @@ query GetProduct($handle: String!) {
 }
 `;
 
-export async function getProducts() {
-  const data = await shopifyFetch(PRODUCTS_QUERY);
+export async function getProducts(country: string = "CO") {
+  const data = await shopifyFetch(PRODUCTS_QUERY, { country }, country);
   return data.data.products.nodes;
 }
 
-export async function getFeaturedProducts() {
-  const products = await getProducts();
+export async function getFeaturedProducts(country: string = "CO") {
+  const products = await getProducts(country);
 
   return products.filter((product: any) =>
     product.tags?.includes("featured")
   );
 }
 
-export async function getProduct(handle: string) {
-  const data = await shopifyFetch(PRODUCT_QUERY, {
-    handle,
-  });
+export async function getProduct(handle: string, country: string = "CO") {
+  const data = await shopifyFetch(PRODUCT_QUERY, { handle, country }, country);
 
   return data.data.product;
 }

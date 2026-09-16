@@ -1,8 +1,8 @@
 import Link from "next/link";
+
 import Container from "@/components/ui/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 
-// Los 4 productos ya existen y son reales en Shopify.
 const pillars = [
   {
     pillar: "Disciplina",
@@ -21,14 +21,16 @@ const pillars = [
   {
     pillar: "Hábitos",
     title: "Mochila AERO BLACK",
-    description: "La que te acompaña en cada rutina, todos los días.",
+    description:
+      "La que te acompaña en cada rutina, todos los días.",
     icon: "✅",
     href: "/products/aero-black-premium-laptop-backpack",
   },
   {
     pillar: "Éxito",
     title: "Kit de Productividad Inalámbrico",
-    description: "El kit de quien ya tomó la decisión.",
+    description:
+      "El kit de quien ya tomó la decisión.",
     icon: "🏆",
     href: "/products/kit-productividad-inalambrico-dcv",
   },
@@ -49,7 +51,7 @@ export default function Categories() {
             <Link
               key={item.pillar}
               href={item.href}
-              className="group flex flex-col items-center rounded-3xl border border-white/10 bg-white p-8 text-center text-neutral-900 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_0_40px_rgba(200,160,74,0.25)]"
+              className="group flex flex-col items-center rounded-3xl border border-white/10 bg-white p-8 text-center text-neutral-900 transition-all duration-500 hover:-translate-y-3 hover:border-[#C8A04A] hover:shadow-[0_0_40px_rgba(200,160,74,0.25)]"
             >
               <div className="text-5xl transition duration-500 group-hover:scale-110">
                 {item.icon}

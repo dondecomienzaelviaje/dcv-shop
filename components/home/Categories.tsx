@@ -2,33 +2,35 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 
-const categories = [
+// Los 4 productos ya existen y son reales en Shopify.
+const pillars = [
   {
-    title: "Tecnología",
-    description: "Herramientas inteligentes para tu día a día y tu trabajo.",
-    icon: "💻",
-    href: "/products?category=Tecnología",
+    pillar: "Disciplina",
+    title: "Botella de Agua Deportiva DCV",
+    description: "Tu hidratación diaria, sin excusas.",
+    icon: "🎯",
+    href: "/products/botella-agua-deportiva-dcv-400-560ml",
   },
   {
-    title: "Productividad",
-    description:
-      "Herramientas para construir hábitos y ejecutar con disciplina.",
-    icon: "⚡",
-    href: "/products?category=Productividad",
+    pillar: "Mentalidad",
+    title: "Reloj de Arena LED 3D",
+    description: "El ritmo correcto para pensar con claridad.",
+    icon: "🧠",
+    href: "/products/reloj-arena-led-3d",
   },
   {
-    title: "Accesorios",
-    description:
-      "Productos seleccionados para acompañar tu crecimiento diario.",
-    icon: "☕",
-    href: "/products?category=Accesorios",
+    pillar: "Hábitos",
+    title: "Mochila AERO BLACK",
+    description: "La que te acompaña en cada rutina, todos los días.",
+    icon: "✅",
+    href: "/products/aero-black-premium-laptop-backpack",
   },
   {
-    title: "Academia",
-    description:
-      "Programas de formación en disciplina, hábitos y crecimiento personal. Muy pronto.",
-    icon: "🎓",
-    href: "/academy",
+    pillar: "Éxito",
+    title: "Kit de Productividad Inalámbrico",
+    description: "El kit de quien ya tomó la decisión.",
+    icon: "🏆",
+    href: "/products/kit-productividad-inalambrico-dcv",
   },
 ];
 
@@ -37,31 +39,37 @@ export default function Categories() {
     <section className="bg-black py-32 text-white">
       <Container>
         <SectionTitle
-          badge="CATEGORÍAS"
+          badge="LOS 4 PILARES"
           title="Todo comienza con una decisión"
-          description="Cada producto de DCV tiene un propósito: ayudarte a desarrollar disciplina, elevar tu mentalidad y construir una vida extraordinaria."
+          description="Un producto por cada pilar: disciplina, mentalidad, hábitos y éxito."
         />
 
         <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {categories.map((category) => (
+          {pillars.map((item) => (
             <Link
-              key={category.title}
-              href={category.href}
-              className="group rounded-3xl border border-white/10 bg-gradient-to-b from-neutral-900 to-black p-10 transition-all duration-500 hover:-translate-y-3 hover:border-[#C8A04A] hover:shadow-[0_0_40px_rgba(200,160,74,0.15)]"
+              key={item.pillar}
+              href={item.href}
+              className="group flex flex-col items-center rounded-3xl border border-white/10 bg-white p-8 text-center text-neutral-900 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_0_40px_rgba(200,160,74,0.25)]"
             >
-              <div className="text-6xl transition duration-500 group-hover:scale-110">
-                {category.icon}
+              <div className="text-5xl transition duration-500 group-hover:scale-110">
+                {item.icon}
               </div>
 
-              <h3 className="mt-8 text-2xl font-black">
-                {category.title}
-              </h3>
-
-              <p className="mt-5 leading-8 text-neutral-400">
-                {category.description}
+              <p className="mt-6 text-xs font-bold uppercase tracking-wide text-[#C8A04A]">
+                {item.pillar}
               </p>
 
-              <div className="mt-8 h-px w-full bg-gradient-to-r from-[#C8A04A] to-transparent opacity-40" />
+              <h3 className="mt-2 text-lg font-bold leading-tight">
+                {item.title}
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-neutral-500">
+                {item.description}
+              </p>
+
+              <span className="mt-6 rounded-lg bg-[#F0A93A] px-5 py-2 text-sm font-semibold text-neutral-900 transition group-hover:brightness-105">
+                Ver producto
+              </span>
             </Link>
           ))}
         </div>

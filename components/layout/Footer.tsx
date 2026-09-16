@@ -7,6 +7,8 @@ import {
   FaTiktok,
 } from "react-icons/fa6";
 
+import { secondaryNavigation } from "@/lib/navigationGroups";
+
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-800 bg-black text-white">
@@ -45,6 +47,16 @@ export default function Footer() {
         Tienda
       </Link>
     </li>
+
+    {/* Academia, Comunidad, Podcast, Blog: se movieron aquí desde el
+        navbar principal para que arriba solo quede lo que vende. */}
+    {secondaryNavigation.map((item) => (
+      <li key={item.name}>
+        <Link href={item.href} className="transition hover:text-white">
+          {item.name}
+        </Link>
+      </li>
+    ))}
   </ul>
 </div>
 

@@ -15,6 +15,7 @@ import SearchModal from "@/components/search/SearchModal";
 import Logo from "./Logo";
 
 import { navigation } from "@/data/navigation";
+import { primaryNavigation, secondaryNavigation } from "@/lib/navigationGroups";
 import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
 
@@ -36,8 +37,8 @@ export default function Navbar() {
 
             <Logo />
 
-            <nav className="hidden items-center gap-10 text-sm font-medium uppercase tracking-wider md:flex">
-              {navigation.map((item) => (
+            <nav className="hidden items-center gap-12 text-lg font-semibold md:flex">
+              {primaryNavigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
@@ -129,12 +130,28 @@ export default function Navbar() {
 
             <nav className="flex flex-col gap-3">
 
-              {navigation.map((item) => (
+              {primaryNavigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className="block rounded-xl px-4 py-4 text-base font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:bg-white/5 hover:text-[#C8A04A]"
+                  className="block rounded-xl px-4 py-4 text-lg font-semibold text-white transition-all duration-300 hover:bg-white/5 hover:text-[#C8A04A]"
+                >
+                  {item.name}
+                </Link>
+              ))}
+
+            </nav>
+
+            {/* Enlaces secundarios, más discretos: no compiten con la venta */}
+            <nav className="mt-6 flex flex-col gap-1 border-t border-neutral-800 pt-6">
+
+              {secondaryNavigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-lg px-4 py-2 text-sm text-neutral-400 transition-all duration-300 hover:bg-white/5 hover:text-[#C8A04A]"
                 >
                   {item.name}
                 </Link>

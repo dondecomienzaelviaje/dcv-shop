@@ -1,48 +1,93 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Button from "@/components/ui/Button";
 
+// Imágenes reales, servidas desde /public/images/hero/.
+// Exportar cada foto a 2400x1350px (relación 16:9), mismo tamaño
+// exacto en las 4 para que el fade no salte de tamaño entre slides.
+const slides = [
+  { src: "/images/hero/botella.webp", alt: "Botella térmica DCV — Disciplina" },
+  { src: "/images/hero/difusor-aceite.webp", alt: "Difusor y aceite esencial DCV — Mentalidad" },
+  { src: "/images/hero/libreta.webp", alt: "Agenda DCV 90 — Hábitos" },
+  { src: "/images/hero/organizador.webp", alt: "Organizador de escritorio DCV — Éxito" },
+];
+
+const INTERVAL_MS = 4000;
+
 export default function Hero() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % slides.length);
+    }, INTERVAL_MS);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black text-white">
-      {/* Fondo */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,160,74,0.18),transparent_60%)]" />
+    <section className="relative h-[70vh] min-h-[420px] overflow-hidden bg-black text-neutral-100">
+      {/* Imágenes en fade. object-contain: la foto completa siempre es
+          visible, sin recortar el producto. */}
+      {slides.map((slide, index) => (
+        <img
+          key={slide.src}
+          src={slide.src}
+          alt={slide.alt}
+          className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-1000 ${
+            index === active ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
 
-        <div className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#C8A04A]/5 blur-3xl" />
+      {/* Viñeta radial: oscurece los bordes de cada foto para que se
+          fundan con el bg-black de la sección, sin importar el fondo
+          real de la imagen (roca, madera, etc). */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%)",
+        }}
+      />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black" />
-      </div>
+      {/* Overlay muy sutil, solo para dar un poco de contraste abajo donde
+          está el texto — el producto se ve casi sin filtro encima. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
       {/* Contenido */}
-      <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
-        <p className="mb-8 text-sm font-semibold uppercase tracking-[0.6em] text-[#C8A04A]">
-          DONDE COMIENZA EL VIAJE
-        </p>
-
-        <h1 className="mx-auto max-w-5xl text-5xl font-black leading-[1.05] md:text-7xl lg:text-8xl">
-          La disciplina
-          <br />
-          <span className="text-[#C8A04A]">
-            cambia destinos.
-          </span>
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-5 text-center">
+        <h1
+          className="text-4xl font-bold tracking-tight md:text-5xl"
+          style={{ textShadow: "0 2px 16px rgba(0, 0, 0, 0.4)" }}
+        >
+          Donde comienza el viaje
         </h1>
 
-        <p className="mx-auto mt-10 max-w-3xl text-lg leading-9 text-neutral-400 md:text-xl">
-          Descubre libros, herramientas y productos creados para desarrollar
-          disciplina, construir hábitos sólidos y convertirte en la mejor versión
-          de ti mismo.
+        <p
+          className="mt-3 text-base text-neutral-200 md:text-lg"
+          style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
+        >
+          4 pilares, 4 productos
         </p>
 
-        <div className="mt-14 flex flex-col items-center justify-center gap-5 sm:flex-row">
-          <Button href="/products">
-            Comienza tu viaje
-          </Button>
+        <div className="mt-8">
+          <Button href="/products">Explorar</Button>
+        </div>
 
-          <Button
-            href="/philosophy"
-            variant="secondary"
-          >
-            Conoce nuestra filosofía
-          </Button>
+        {/* Indicadores */}
+        <div className="mt-10 flex gap-2">
+          {slides.map((slide, index) => (
+            <button
+              key={slide.src}
+              onClick={() => setActive(index)}
+              aria-label={`Ver ${slide.alt}`}
+              className={`h-2 rounded-full transition-all ${
+                index === active ? "w-6 bg-[#F0A93A]" : "w-2 bg-white/20"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

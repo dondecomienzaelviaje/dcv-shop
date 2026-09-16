@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
-import { formatPrice } from "@/lib/formatPrice";
+import DualPrice from "@/components/DualPrice";
 
 type Product = {
   id: string;
@@ -133,14 +133,14 @@ export default function SearchModal({
                   {product.title}
                 </h3>
 
-                <p className="text-[#C8A04A]">
-                  {formatPrice(
+                <DualPrice
+                  usdCents={Math.round(
                     Number(
                       product.priceRange.minVariantPrice.amount
-                    ),
-                    product.priceRange.minVariantPrice.currencyCode
+                    ) * 100
                   )}
-                </p>
+                  showReference={false}
+                />
 
               </div>
 

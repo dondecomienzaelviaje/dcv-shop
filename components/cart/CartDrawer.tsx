@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
 
 import { useCartStore } from "@/store/cartStore";
-import { formatPrice } from "@/lib/formatPrice";
+import DualPrice from "@/components/DualPrice";
 
 type Props = {
   open: boolean;
@@ -61,10 +61,9 @@ export default function CartDrawer({ open, onClose }: Props) {
     0
   );
 
-  // Todos los items de un mismo carrito deberían tener la misma moneda,
-  // ya que se agregaron bajo el mismo contexto de país. Usamos la del
-  // primer item como referencia para mostrar el subtotal.
-  const cartCurrency = items[0]?.currencyCode ?? "USD";
+  // item.price y subtotal vienen en dólares decimales (mismo origen que
+  // ProductInfo: Number(selectedVariant.price.amount)), no en centavos.
+  // DualPrice espera centavos de USD, así que se convierten antes de pasarlos.
 
   if (!open) return null;
 
@@ -136,9 +135,9 @@ export default function CartDrawer({ open, onClose }: Props) {
                       {item.title}
                     </h4>
 
-                    <p className="mt-1 text-[#C8A04A]">
-                      {formatPrice(item.price, item.currencyCode)}
-                    </p>
+                    <div className="mt-1">
+                      <DualPrice usdCents={Math.round(item.price * 100)} />
+                    </div>
 
                     <div className="mt-4 flex items-center gap-2">
 
@@ -178,13 +177,10 @@ export default function CartDrawer({ open, onClose }: Props) {
 
             <div className="border-t border-neutral-800 p-6">
 
-              <div className="mb-6 flex justify-between text-lg font-bold">
+              <div className="mb-6 flex items-center justify-between text-lg font-bold">
                 <span>Subtotal</span>
 
-                <span className="text-[#C8A04A]">
-                  {formatPrice(subtotal, cartCurrency)}
-                </span>
-
+                <DualPrice usdCents={Math.round(subtotal * 100)} />
               </div>
 
               <button

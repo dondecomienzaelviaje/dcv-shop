@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Truck } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
-import { formatPrice } from "@/lib/formatPrice";
+import DualPrice from "@/components/DualPrice";
 import VariantSelector, {
   type Variant,
 } from "./VariantSelector";
@@ -42,7 +42,9 @@ export default function ProductInfo({
     selectedVariant.price.amount
   );
 
-  const currencyCode = selectedVariant.price.currencyCode;
+  // Shopify entrega el monto como string decimal (ej. "29.99"),
+  // DualPrice espera centavos de USD.
+  const usdCents = Math.round(price * 100);
 
   const selectedImage =
     selectedVariant.image?.url ?? image;
@@ -53,9 +55,9 @@ export default function ProductInfo({
         {title}
       </h1>
 
-      <p className="mb-4 text-3xl font-black text-[#C8A04A]">
-        {formatPrice(price, currencyCode)}
-      </p>
+      <div className="mb-4">
+        <DualPrice usdCents={usdCents} />
+      </div>
 
       <div className="mb-8 flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-300">
         <Truck size={20} className="shrink-0 text-[#C8A04A]" />

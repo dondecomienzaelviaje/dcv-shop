@@ -1,17 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import Button from "./Button";
+import DualPrice from "@/components/DualPrice";
 
 type ProductCardProps = {
   title: string;
-  price: string;
+  usdCents: number;
   image: string;
   handle: string;
 };
 
 export default function ProductCard({
   title,
-  price,
+  usdCents,
   image,
   handle,
 }: ProductCardProps) {
@@ -39,9 +40,7 @@ export default function ProductCard({
           </h3>
         </Link>
 
-        <p className="text-3xl font-black text-[#C8A04A]">
-          {price}
-        </p>
+        <DualPrice usdCents={usdCents} />
 
         <Link href={`/products/${handle}`}>
           <Button>

@@ -3,7 +3,6 @@ import Container from "@/components/ui/Container";
 import ProductCard from "@/components/ui/ProductCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { getFeaturedProducts } from "@/lib/products";
-import { formatPrice } from "@/lib/formatPrice";
 
 export default async function FeaturedProducts() {
   const country = (await cookies()).get("country")?.value || "CO";
@@ -24,9 +23,8 @@ export default async function FeaturedProducts() {
               key={product.id}
               handle={product.handle}
               title={product.title}
-              price={formatPrice(
-                Number(product.priceRange.minVariantPrice.amount),
-                product.priceRange.minVariantPrice.currencyCode
+              usdCents={Math.round(
+                Number(product.priceRange.minVariantPrice.amount) * 100
               )}
               image={
                 product.featuredImage?.url ||

@@ -58,7 +58,8 @@ export default function ContactoPage() {
                   Correo electrónico
                 </p>
 
-                <a
+                
+                  <a
                   href="mailto:contacto@dcvcorp.com"
                   className="mt-2 block text-lg text-yellow-500 hover:underline"
                 >
@@ -72,7 +73,7 @@ export default function ContactoPage() {
                 </p>
 
                 <p className="mt-2 text-zinc-300">
-                  24 a 48 horas hábiles.
+                  Menos de 1 hora por WhatsApp.
                 </p>
               </div>
 
@@ -82,9 +83,9 @@ export default function ContactoPage() {
                 </p>
 
                 <p className="mt-2 text-zinc-300">
-                  Lunes a viernes
+                  Todos los días
                   <br />
-                  8:00 a.m. – 6:00 p.m.
+                  6:00 a.m. – 11:00 p.m.
                 </p>
               </div>
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "./Button";
 import DualPrice from "@/components/DualPrice";
+import PaymentBadges from "./PaymentBadges";
 
 type ProductCardProps = {
   title: string;
@@ -47,6 +48,8 @@ export default function ProductCard({
             Ver producto
           </Button>
         </Link>
+
+        <PaymentBadges className="justify-center" />
 
       </div>
 

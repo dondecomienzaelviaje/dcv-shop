@@ -6,6 +6,7 @@ import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
 
 import { useCartStore } from "@/store/cartStore";
 import DualPrice from "@/components/DualPrice";
+import PaymentBadges from "@/components/ui/PaymentBadges";
 
 type Props = {
   open: boolean;
@@ -182,6 +183,8 @@ export default function CartDrawer({ open, onClose }: Props) {
 
                 <DualPrice usdCents={Math.round(subtotal * 100)} />
               </div>
+
+              <PaymentBadges className="mb-4 justify-center" />
 
               <button
                 onClick={handleCheckout}

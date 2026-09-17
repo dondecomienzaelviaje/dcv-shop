@@ -5,6 +5,7 @@ import { Truck } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
 import DualPrice from "@/components/DualPrice";
+import PaymentBadges from "@/components/ui/PaymentBadges";
 import VariantSelector, {
   type Variant,
 } from "./VariantSelector";
@@ -42,8 +43,6 @@ export default function ProductInfo({
     selectedVariant.price.amount
   );
 
-  // Shopify entrega el monto como string decimal (ej. "29.99"),
-  // DualPrice espera centavos de USD.
   const usdCents = Math.round(price * 100);
 
   const selectedImage =
@@ -103,6 +102,10 @@ export default function ProductInfo({
           ? "Añadir al carrito"
           : "Agotado"}
       </button>
+
+      <div className="mt-4">
+        <PaymentBadges />
+      </div>
 
       <AddToCartToast
         open={toastOpen}

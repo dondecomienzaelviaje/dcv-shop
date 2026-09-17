@@ -9,6 +9,7 @@ import {
 
 import { secondaryNavigation } from "@/lib/navigationGroups";
 
+import NewsletterForm from "@/components/layout/NewsletterForm";
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-800 bg-black text-white">
@@ -115,6 +116,11 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
+        </div>
+
+                {/* Newsletter */}
+                <div>
+          <NewsletterForm />
         </div>
 
         {/* Comunidad */}

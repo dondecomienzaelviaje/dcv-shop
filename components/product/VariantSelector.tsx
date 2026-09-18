@@ -41,14 +41,27 @@ export default function VariantSelector({
 
   return (
     <div className="mb-10">
-      <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-zinc-400">
-        {optionName}
-      </h3>
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">
+          {optionName}
+        </h3>
+
+        <span className="text-sm text-zinc-500">
+          Seleccionado:{" "}
+          <span className="text-white">
+            {selectedVariant.selectedOptions?.[0]?.value ||
+              selectedVariant.title}
+          </span>
+        </span>
+      </div>
 
       <div className="flex flex-wrap gap-3">
         {variants.map((variant) => {
-          const active =
-            variant.id === selectedVariant.id;
+          const active = variant.id === selectedVariant.id;
+
+          const label =
+            variant.selectedOptions?.[0]?.value ||
+            variant.title;
 
           return (
             <button
@@ -56,18 +69,29 @@ export default function VariantSelector({
               type="button"
               onClick={() => onChange(variant)}
               disabled={!variant.availableForSale}
-              className={`rounded-xl border px-5 py-3 transition-all duration-300 ${
+              aria-pressed={active}
+              aria-label={`${optionName}: ${label}${
+                !variant.availableForSale
+                  ? " — agotado"
+                  : ""
+              }`}
+              className={`relative rounded-xl border px-5 py-3 font-medium transition-all duration-200 ${
                 active
-                  ? "border-[#C8A04A] bg-[#C8A04A] text-black"
-                  : "border-zinc-700 bg-zinc-900 text-white hover:border-[#C8A04A]"
+                  ? "border-[#C8A04A] bg-[#C8A04A] text-black shadow-[0_0_0_1px_#C8A04A]"
+                  : "border-zinc-700 bg-zinc-900 text-white hover:border-[#C8A04A] hover:bg-zinc-800"
               } ${
                 !variant.availableForSale
                   ? "cursor-not-allowed opacity-40"
                   : ""
               }`}
             >
-              {variant.selectedOptions?.[0]?.value ||
-                variant.title}
+              {label}
+
+              {!variant.availableForSale && (
+                <span className="ml-2 text-xs">
+                  Agotado
+                </span>
+              )}
             </button>
           );
         })}

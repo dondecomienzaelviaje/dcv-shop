@@ -14,9 +14,47 @@ export default function EnviosPage() {
             </h2>
 
             <p>
-              Actualmente DCV Shop realiza envíos principalmente a Estados
-              Unidos. La disponibilidad de envío puede variar según el
-              producto y la ubicación del cliente.
+              DCV Shop ofrece diferentes opciones de entrega según el producto
+              y la ubicación del cliente. La disponibilidad y el tiempo de
+              entrega se muestran en la ficha de cada producto antes de realizar
+              la compra.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Entrega local
+            </h2>
+
+            <p>
+              Algunos productos cuentan con inventario disponible para entrega
+              local. Estos productos pueden entregarse normalmente entre
+              <strong className="text-white"> 24 y 48 horas</strong>, dependiendo
+              de la ciudad, la hora de compra y la disponibilidad del servicio.
+            </p>
+
+            <p className="mt-4">
+              Cuando un producto cuenta con entrega local, esta opción estará
+              claramente identificada en su ficha de producto.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Envío internacional
+            </h2>
+
+            <p>
+              Algunos productos son enviados desde centros de distribución o
+              proveedores internacionales. Para estos productos, el tiempo
+              estimado de entrega normalmente es de
+              <strong className="text-white"> 7 a 20 días hábiles</strong>.
+            </p>
+
+            <p className="mt-4">
+              El tiempo puede variar según el destino, el proveedor, el
+              transportista, temporadas de alta demanda, días festivos y
+              procesos aduaneros.
             </p>
           </section>
 
@@ -27,25 +65,15 @@ export default function EnviosPage() {
 
             <p>
               Una vez confirmado el pago, el pedido entra en proceso de
-              preparación. Este proceso normalmente toma entre 1 y 3 días
-              hábiles antes de ser despachado por el proveedor.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-3">
-              Tiempo de entrega
-            </h2>
-
-            <p>
-              Los tiempos de entrega dependen del proveedor y del destino.
-              En la mayoría de los casos los pedidos son entregados entre
-              7 y 20 días hábiles.
+              preparación. El tiempo de procesamiento puede variar según el
+              producto y su modalidad de entrega.
             </p>
 
             <p className="mt-4">
-              En temporadas de alta demanda, festivos o procesos
-              aduaneros, el tiempo de entrega puede extenderse.
+              Los productos de inventario local pueden procesarse para entrega
+              rápida, mientras que los productos enviados internacionalmente
+              pueden requerir entre <strong className="text-white">1 y 3 días
+              hábiles</strong> antes de ser despachados.
             </p>
           </section>
 
@@ -55,10 +83,9 @@ export default function EnviosPage() {
             </h2>
 
             <p>
-              Muchos de nuestros productos incluyen envío gratuito.
-              Cuando un producto tenga un costo de envío adicional,
-              este será mostrado durante el proceso de compra antes
-              de finalizar el pedido.
+              Muchos de nuestros productos incluyen envío gratuito. Cuando un
+              producto tenga un costo de envío adicional, este será mostrado
+              durante el proceso de compra antes de finalizar el pedido.
             </p>
           </section>
 
@@ -68,9 +95,26 @@ export default function EnviosPage() {
             </h2>
 
             <p>
-              Una vez el pedido sea despachado, recibirás un número de
-              seguimiento para consultar el estado del envío cuando el
-              proveedor lo tenga disponible.
+              Cuando el servicio de transporte proporcione información de
+              seguimiento, recibirás los datos correspondientes para consultar
+              el estado de tu pedido.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Pedidos con diferentes modalidades de entrega
+            </h2>
+
+            <p>
+              Si un pedido contiene productos con diferentes modalidades de
+              entrega, estos pueden enviarse por separado y llegar en momentos
+              diferentes.
+            </p>
+
+            <p className="mt-4">
+              El tiempo estimado correspondiente a cada producto se indicará
+              durante el proceso de compra.
             </p>
           </section>
 
@@ -80,10 +124,16 @@ export default function EnviosPage() {
             </h2>
 
             <p>
-              DCV Shop trabaja con proveedores internacionales cuidadosamente
-              seleccionados para ofrecer productos de alta calidad. Por esta
-              razón, algunos pedidos pueden enviarse directamente desde el país
-              de origen del proveedor.
+              Los tiempos indicados son estimados y no constituyen una garantía
+              de entrega en una fecha específica. Factores externos como
+              condiciones climáticas, alta demanda, días festivos, operadores
+              logísticos o procesos aduaneros pueden ocasionar retrasos.
+            </p>
+
+            <p className="mt-4">
+              Para conocer el tiempo estimado de entrega de un producto
+              específico, consulta la información mostrada directamente en su
+              ficha antes de realizar la compra.
             </p>
           </section>
 

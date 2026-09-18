@@ -1,5 +1,16 @@
 import { shopifyFetch } from "./shopify";
 
+type DeliveryType = "local" | "international";
+
+type ShopifyProduct = {
+  tags?: string[];
+  [key: string]: any;
+};
+
+function getDeliveryType(tags: string[] = []): DeliveryType {
+  return tags.includes("delivery-local") ? "local" : "international";
+}
+
 const PRODUCTS_QUERY = `
 query GetProducts($country: CountryCode!) @inContext(country: $country) {
   products(first: 100) {
@@ -28,7 +39,6 @@ query GetProducts($country: CountryCode!) @inContext(country: $country) {
         nodes {
           id
           title
-
           availableForSale
 
           selectedOptions {
@@ -86,7 +96,6 @@ query GetProduct($handle: String!, $country: CountryCode!) @inContext(country: $
       nodes {
         id
         title
-
         availableForSale
 
         selectedOptions {
@@ -117,20 +126,44 @@ query GetProduct($handle: String!, $country: CountryCode!) @inContext(country: $
 `;
 
 export async function getProducts(country: string = "CO") {
-  const data = await shopifyFetch(PRODUCTS_QUERY, { country }, country);
-  return data.data.products.nodes;
+  const data = await shopifyFetch(
+    PRODUCTS_QUERY,
+    { country },
+    country
+  );
+
+  return data.data.products.nodes.map((product: ShopifyProduct) => ({
+    ...product,
+    deliveryType: getDeliveryType(product.tags ?? []),
+  }));
 }
 
 export async function getFeaturedProducts(country: string = "CO") {
   const products = await getProducts(country);
 
-  return products.filter((product: any) =>
+  return products.filter((product: ShopifyProduct) =>
     product.tags?.includes("featured")
   );
 }
 
-export async function getProduct(handle: string, country: string = "CO") {
-  const data = await shopifyFetch(PRODUCT_QUERY, { handle, country }, country);
+export async function getProduct(
+  handle: string,
+  country: string = "CO"
+) {
+  const data = await shopifyFetch(
+    PRODUCT_QUERY,
+    { handle, country },
+    country
+  );
 
-  return data.data.product;
+  const product = data.data.product;
+
+  if (!product) {
+    return null;
+  }
+
+  return {
+    ...product,
+    deliveryType: getDeliveryType(product.tags ?? []),
+  };
 }

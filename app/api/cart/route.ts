@@ -3,7 +3,20 @@ import { createShopifyCart } from "@/lib/cart";
 
 export async function POST(request: Request) {
   try {
-    const { lines } = await request.json();
+    const body = await request.json();
+
+    const { lines } = body;
+
+    if (!Array.isArray(lines) || lines.length === 0) {
+      return NextResponse.json(
+        {
+          error: "El carrito está vacío.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
     const result = await createShopifyCart(lines);
 
@@ -18,11 +31,26 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!result.cart?.checkoutUrl) {
+      return NextResponse.json(
+        {
+          error:
+            "Shopify no devolvió una URL de checkout.",
+        },
+        {
+          status: 500,
+        }
+      );
+    }
+
     return NextResponse.json({
       checkoutUrl: result.cart.checkoutUrl,
     });
   } catch (error) {
-    console.error(error);
+    console.error(
+      "Error creando checkout:",
+      error
+    );
 
     return NextResponse.json(
       {

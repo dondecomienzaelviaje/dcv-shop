@@ -1,34 +1,82 @@
 import { cookies } from "next/headers";
-import { getProducts } from "@/lib/products";
-import ProductsClient from "./ProductsClient";
+import { getProduct } from "@/lib/products";
+import ProductGallery from "@/components/product/ProductGallery";
+import ProductInfo from "@/components/product/ProductInfo";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Productos | DCV Shop",
-  description:
-    "Descubre todos los productos disponibles en DCV Shop.",
-};
-
 type Props = {
-  searchParams: Promise<{
-    category?: string;
+  params: Promise<{
+    handle: string;
   }>;
 };
 
-export default async function ProductsPage({
-  searchParams,
-}: Props) {
-  const country = (await cookies()).get("country")?.value || "CO";
-  const { category } = await searchParams;
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { handle } = await params;
+  const country =
+    (await cookies()).get("country")?.value || "CO";
 
-  const products = await getProducts(country);
+  const product = await getProduct(handle, country);
+
+  if (!product) {
+    return {
+      title: "Producto no encontrado",
+    };
+  }
+
+  const description =
+    product.description?.slice(0, 155) ??
+    "Descubre este producto en DCV Shop.";
+
+  return {
+    title: product.title,
+    description,
+    openGraph: {
+      title: product.title,
+      description,
+      images: product.featuredImage?.url
+        ? [{ url: product.featuredImage.url }]
+        : undefined,
+    },
+  };
+}
+
+export default async function ProductPage({
+  params,
+}: Props) {
+  const { handle } = await params;
+
+  const country =
+    (await cookies()).get("country")?.value || "CO";
+
+  const product = await getProduct(handle, country);
+
+  if (!product) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-black text-white">
+        Producto no encontrado.
+      </main>
+    );
+  }
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <ProductsClient
-        products={products}
-        initialCategory={category || "Todos"}
-      />
+    <main className="mx-auto max-w-7xl px-6 py-20 text-white">
+      <div className="grid gap-16 lg:grid-cols-2">
+        <ProductGallery
+          images={product.images.nodes}
+          title={product.title}
+        />
+
+        <ProductInfo
+          id={product.id}
+          title={product.title}
+          description={product.description}
+          image={product.featuredImage?.url ?? ""}
+          variants={product.variants.nodes}
+          deliveryType={product.deliveryType}
+        />
+      </div>
     </main>
   );
 }

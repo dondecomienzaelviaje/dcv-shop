@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export type DeliveryType = "local" | "international";
+
 export type CartItem = {
   id: string;
   variantId: string;
@@ -9,6 +11,7 @@ export type CartItem = {
   currencyCode: string;
   image: string;
   quantity: number;
+  deliveryType: DeliveryType;
 };
 
 type CartStore = {
@@ -40,13 +43,12 @@ export const useCartStore = create<CartStore>()(
 
       addItem: (item) =>
         set((state) => {
-          // Si el carrito ya tiene items en una moneda distinta a la del
-          // producto que se está agregando (ej. el cliente cambió de país
-          // o usó VPN a medio camino), vaciamos el carrito antes de
-          // agregar el nuevo item. Nunca mezclamos monedas en un subtotal.
+          // No mezclamos monedas diferentes
+          // dentro del mismo carrito.
           const currentItems =
             state.items.length > 0 &&
-            state.items[0].currencyCode !== item.currencyCode
+            state.items[0].currencyCode !==
+              item.currencyCode
               ? []
               : state.items;
 
@@ -94,7 +96,8 @@ export const useCartStore = create<CartStore>()(
             item.variantId === variantId
               ? {
                   ...item,
-                  quantity: item.quantity + 1,
+                  quantity:
+                    item.quantity + 1,
                 }
               : item
           ),
@@ -107,7 +110,8 @@ export const useCartStore = create<CartStore>()(
               item.variantId === variantId
                 ? {
                     ...item,
-                    quantity: item.quantity - 1,
+                    quantity:
+                      item.quantity - 1,
                   }
                 : item
             )

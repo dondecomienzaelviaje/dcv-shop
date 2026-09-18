@@ -14,7 +14,10 @@ export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
   const { handle } = await params;
-  const country = (await cookies()).get("country")?.value || "CO";
+
+  const country =
+    (await cookies()).get("country")?.value || "CO";
+
   const product = await getProduct(handle, country);
 
   if (!product) {
@@ -40,9 +43,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({
+  params,
+}: Props) {
   const { handle } = await params;
-  const country = (await cookies()).get("country")?.value || "CO";
+
+  const country =
+    (await cookies()).get("country")?.value || "CO";
 
   const product = await getProduct(handle, country);
 
@@ -57,7 +64,6 @@ export default async function ProductPage({ params }: Props) {
   return (
     <main className="mx-auto max-w-7xl px-6 py-20 text-white">
       <div className="grid gap-16 lg:grid-cols-2">
-
         <ProductGallery
           images={product.images.nodes}
           title={product.title}
@@ -69,8 +75,8 @@ export default async function ProductPage({ params }: Props) {
           description={product.description}
           image={product.featuredImage?.url ?? ""}
           variants={product.variants.nodes}
+          deliveryType={product.deliveryType}
         />
-
       </div>
     </main>
   );

@@ -1,21 +1,19 @@
 "use client";
 
 import { useState } from "react";
-
 import Image from "next/image";
-
 import {
   ShoppingCart,
   X,
   Plus,
   Minus,
   Trash2,
+  Truck,
+  Globe2,
 } from "lucide-react";
 
 import { useCartStore } from "@/store/cartStore";
-
 import DualPrice from "@/components/DualPrice";
-
 import PaymentBadges from "@/components/ui/PaymentBadges";
 
 type Props = {
@@ -76,6 +74,18 @@ export default function CartDrawer({
     0
   );
 
+  const hasLocalDelivery = items.some(
+    (item) => item.deliveryType === "local"
+  );
+
+  const hasInternationalDelivery = items.some(
+    (item) =>
+      item.deliveryType === "international"
+  );
+
+  const hasMixedDelivery =
+    hasLocalDelivery && hasInternationalDelivery;
+
   if (!open) return null;
 
   return (
@@ -91,9 +101,7 @@ export default function CartDrawer({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-neutral-800 p-6">
           <div className="flex items-center gap-3">
-            <ShoppingCart
-              className="text-[#C8A04A]"
-            />
+            <ShoppingCart className="text-[#C8A04A]" />
 
             <h2 className="text-xl font-bold text-white">
               Mi carrito
@@ -130,81 +138,151 @@ export default function CartDrawer({
           <>
             {/* Productos */}
             <div className="flex-1 space-y-5 overflow-y-auto p-6">
-              {items.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex gap-4 rounded-2xl border border-neutral-800 p-4"
-                >
-                  {/* Imagen */}
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-contain p-2"
-                    />
-                  </div>
+              {items.map((item) => {
+                const isLocal =
+                  item.deliveryType === "local";
 
-                  {/* Información */}
-                  <div className="flex min-w-0 flex-1 flex-col">
-                    <h4 className="line-clamp-2 font-bold text-white">
-                      {item.title}
-                    </h4>
+                return (
+                  <div
+                    key={item.id}
+                    className="rounded-2xl border border-neutral-800 p-4"
+                  >
+                    <div className="flex gap-4">
+                      {/* Imagen */}
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="object-contain p-2"
+                        />
+                      </div>
 
-                    <div className="mt-1">
-                      <DualPrice
-                        usdCents={Math.round(
-                          item.price * 100
-                        )}
-                      />
+                      {/* Información */}
+                      <div className="flex min-w-0 flex-1 flex-col">
+                        <h4 className="line-clamp-2 font-bold text-white">
+                          {item.title}
+                        </h4>
+
+                        <div className="mt-1">
+                          <DualPrice
+                            usdCents={Math.round(
+                              item.price * 100
+                            )}
+                          />
+                        </div>
+
+                        {/* Cantidad */}
+                        <div className="mt-4 flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              decreaseQuantity(
+                                item.variantId
+                              )
+                            }
+                            aria-label="Disminuir cantidad"
+                            className="rounded-lg bg-neutral-800 p-2 text-white transition hover:bg-neutral-700"
+                          >
+                            <Minus size={16} />
+                          </button>
+
+                          <span className="w-8 text-center text-white">
+                            {item.quantity}
+                          </span>
+
+                          <button
+                            type="button"
+                            onClick={() =>
+                              increaseQuantity(
+                                item.variantId
+                              )
+                            }
+                            aria-label="Aumentar cantidad"
+                            className="rounded-lg bg-neutral-800 p-2 text-white transition hover:bg-neutral-700"
+                          >
+                            <Plus size={16} />
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() =>
+                              removeItem(
+                                item.variantId
+                              )
+                            }
+                            aria-label="Eliminar producto"
+                            className="ml-auto text-red-500 transition hover:text-red-400"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Cantidad */}
-                    <div className="mt-4 flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          decreaseQuantity(
-                            item.variantId
-                          )
-                        }
-                        aria-label="Disminuir cantidad"
-                        className="rounded-lg bg-neutral-800 p-2 text-white transition hover:bg-neutral-700"
-                      >
-                        <Minus size={16} />
-                      </button>
+                    {/* Modalidad de entrega */}
+                    <div
+                      className={`mt-4 flex items-start gap-3 rounded-xl border px-3 py-3 ${
+                        isLocal
+                          ? "border-emerald-500/20 bg-emerald-500/5"
+                          : "border-blue-500/20 bg-blue-500/5"
+                      }`}
+                    >
+                      {isLocal ? (
+                        <Truck
+                          size={18}
+                          className="mt-0.5 shrink-0 text-[#C8A04A]"
+                        />
+                      ) : (
+                        <Globe2
+                          size={18}
+                          className="mt-0.5 shrink-0 text-[#C8A04A]"
+                        />
+                      )}
 
-                      <span className="w-8 text-center text-white">
-                        {item.quantity}
-                      </span>
+                      <div>
+                        <p className="text-xs font-bold text-white">
+                          {isLocal
+                            ? "Entrega local"
+                            : "Envío internacional"}
+                        </p>
 
-                      <button
-                        type="button"
-                        onClick={() =>
-                          increaseQuantity(
-                            item.variantId
-                          )
-                        }
-                        aria-label="Aumentar cantidad"
-                        className="rounded-lg bg-neutral-800 p-2 text-white transition hover:bg-neutral-700"
-                      >
-                        <Plus size={16} />
-                      </button>
+                        <p className="mt-1 text-xs leading-5 text-neutral-400">
+                          {isLocal
+                            ? "Normalmente 24–48 horas."
+                            : "Normalmente 7–20 días hábiles."}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
 
-                      <button
-                        type="button"
-                        onClick={() =>
-                          removeItem(item.variantId)
-                        }
-                        aria-label="Eliminar producto"
-                        className="ml-auto text-red-500 transition hover:text-red-400"
-                      >
-                        <Trash2 size={18} />
-                      </button>
+              {/* Aviso para pedidos mixtos */}
+              {hasMixedDelivery && (
+                <div className="rounded-2xl border border-[#C8A04A]/30 bg-[#C8A04A]/5 p-4">
+                  <div className="flex items-start gap-3">
+                    <Truck
+                      size={20}
+                      className="mt-0.5 shrink-0 text-[#C8A04A]"
+                    />
+
+                    <div>
+                      <p className="text-sm font-bold text-white">
+                        Tu pedido tiene diferentes
+                        modalidades de entrega
+                      </p>
+
+                      <p className="mt-1 text-xs leading-5 text-neutral-400">
+                        Algunos productos pueden
+                        llegar por separado porque
+                        tienen tiempos de entrega
+                        diferentes.
+                      </p>
                     </div>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
 
             {/* Resumen */}

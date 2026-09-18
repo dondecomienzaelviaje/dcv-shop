@@ -20,7 +20,7 @@ const items: TrustItem[] = [
   {
     icon: Truck,
     title: "Envío rápido",
-    detail: "Entrega en 24–48 horas",
+    detail: "Local 24–48 h · Internacional 7–20 días",
   },
   {
     icon: ShieldCheck,

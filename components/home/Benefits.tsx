@@ -2,35 +2,35 @@ import Container from "@/components/ui/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {
   ShieldCheck,
-  Target,
-  Rocket,
-  Award,
+  Truck,
+  RotateCcw,
+  MessageCircle,
 } from "lucide-react";
 
 const benefits = [
   {
-    title: "Calidad Premium",
+    title: "Compra segura",
     description:
-      "Seleccionamos productos duraderos, funcionales y de alta calidad para acompañarte en tu día a día.",
-    icon: Award,
-  },
-  {
-    title: "Enfocados en el crecimiento",
-    description:
-      "Cada producto está pensado para ayudarte a trabajar mejor, viajar mejor, entrenar mejor o desarrollar hábitos más sólidos.",
-    icon: Target,
-  },
-  {
-    title: "Compra 100 % segura",
-    description:
-      "Compra con confianza mediante pagos seguros, protección de datos y una experiencia profesional de principio a fin.",
+      "Realiza tu compra mediante métodos de pago disponibles y una experiencia diseñada para proteger tus datos durante el proceso.",
     icon: ShieldCheck,
   },
   {
-    title: "Catálogo en constante evolución",
+    title: "Envío con seguimiento",
     description:
-      "Incorporamos nuevos productos, ebooks y herramientas para acompañarte en cada etapa de tu crecimiento.",
-    icon: Rocket,
+      "Recibe actualizaciones sobre el estado de tu pedido para que puedas seguir su recorrido hasta la entrega.",
+    icon: Truck,
+  },
+  {
+    title: "Compra con tranquilidad",
+    description:
+      "Si tu pedido llega defectuoso, incompleto, dañado o diferente al solicitado, puedes contactarnos para revisar tu caso.",
+    icon: RotateCcw,
+  },
+  {
+    title: "Atención directa",
+    description:
+      "¿Tienes alguna duda antes de comprar? Estamos disponibles para ayudarte y orientarte durante tu compra.",
+    icon: MessageCircle,
   },
 ];
 
@@ -40,8 +40,8 @@ export default function Benefits() {
       <Container>
         <SectionTitle
           badge="¿POR QUÉ ELEGIR DCV SHOP?"
-          title="Herramientas que impulsan tu crecimiento."
-          description="No vendemos productos por vender. Seleccionamos herramientas que impulsan la disciplina, la productividad y el crecimiento personal."
+          title="Compra con confianza. Crece con propósito."
+          description="Seleccionamos productos pensados para acompañarte en tu día a día, con una experiencia de compra clara, seguimiento de tus pedidos y atención directa."
         />
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -54,7 +54,10 @@ export default function Benefits() {
                 className="min-h-[380px] rounded-3xl border border-neutral-800 bg-neutral-900 p-8 transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500 hover:shadow-xl"
               >
                 <div className="inline-flex rounded-2xl bg-yellow-500/10 p-5">
-                  <Icon size={38} className="text-yellow-500" />
+                  <Icon
+                    size={38}
+                    className="text-yellow-500"
+                  />
                 </div>
 
                 <h3 className="mt-6 text-2xl font-bold text-white">

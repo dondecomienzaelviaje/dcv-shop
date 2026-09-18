@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Truck } from "lucide-react";
+import { Truck, MessageCircle } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
 import DualPrice from "@/components/DualPrice";
@@ -48,6 +48,12 @@ export default function ProductInfo({
   const selectedImage =
     selectedVariant.image?.url ?? image;
 
+  const whatsappNumber = "573136037290";
+
+  const whatsappMessage = encodeURIComponent(
+    `Hola, tengo una pregunta sobre el producto "${title}".`
+  );
+
   return (
     <div>
       <h1 className="mb-6 text-5xl font-black">
@@ -59,7 +65,11 @@ export default function ProductInfo({
       </div>
 
       <div className="mb-8 flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm text-neutral-300">
-        <Truck size={20} className="shrink-0 text-[#C8A04A]" />
+        <Truck
+          size={20}
+          className="shrink-0 text-[#C8A04A]"
+        />
+
         <span>
           Enviamos a Colombia y EE. UU. — Entrega estimada: 7 a 20 días hábiles
         </span>
@@ -86,7 +96,8 @@ export default function ProductInfo({
             variantId: selectedVariant.id,
             title,
             price,
-            currencyCode: selectedVariant.price.currencyCode,
+            currencyCode:
+              selectedVariant.price.currencyCode,
             image: selectedImage,
           });
 
@@ -105,6 +116,79 @@ export default function ProductInfo({
 
       <div className="mt-4">
         <PaymentBadges />
+      </div>
+
+      {/* Envío con seguimiento */}
+      <div className="mt-5 flex items-start gap-3 text-sm text-neutral-300">
+        <Truck
+          size={20}
+          className="mt-0.5 shrink-0 text-[#C8A04A]"
+        />
+
+        <div>
+          <p className="font-semibold text-white">
+            Envío con seguimiento
+          </p>
+          
+
+          <p className="mt-1 text-neutral-400">
+            Recibe actualizaciones sobre el estado de tu pedido hasta su entrega.
+          </p>
+        </div>
+      </div>
+
+      {/* Cambios y devoluciones */}
+<div className="mt-5 flex items-start gap-3 text-sm text-neutral-300">
+  <span
+    className="mt-0.5 shrink-0 text-[20px] leading-none text-[#C8A04A]"
+    aria-hidden="true"
+  >
+    ↩
+  </span>
+
+  <div>
+    <p className="font-semibold text-white">
+      Cambios y devoluciones
+    </p>
+
+    <p className="mt-1 text-neutral-400">
+      Si tu pedido llega defectuoso, incompleto, dañado o diferente al solicitado,
+      puedes contactarnos para revisar tu caso.
+    </p>
+
+    <a
+      href="/devoluciones"
+      className="mt-2 inline-block font-semibold text-[#C8A04A] transition hover:text-[#D7AF56]"
+    >
+      Consultar política de devoluciones →
+    </a>
+  </div>
+</div>
+      {/* Atención por WhatsApp */}
+      <div className="mt-5 flex items-start gap-3 text-sm text-neutral-300">
+        <MessageCircle
+          size={20}
+          className="mt-0.5 shrink-0 text-[#C8A04A]"
+        />
+
+        <div>
+          <p className="font-semibold text-white">
+            ¿Tienes alguna duda?
+          </p>
+
+          <p className="mt-1 text-neutral-400">
+            Estamos aquí para ayudarte antes de tu compra.
+          </p>
+
+          <a
+            href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-block font-semibold text-[#C8A04A] transition hover:text-[#D7AF56]"
+          >
+            Hablar con nosotros por WhatsApp →
+          </a>
+        </div>
       </div>
 
       <AddToCartToast

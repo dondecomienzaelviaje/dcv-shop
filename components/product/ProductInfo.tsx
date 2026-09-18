@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Truck, MessageCircle } from "lucide-react";
+import { Truck, MessageCircle, CheckCircle2, Info } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
 import DualPrice from "@/components/DualPrice";
@@ -18,6 +18,72 @@ type Props = {
   description: string;
   image: string;
 };
+
+// Los textos de Shopify vienen como un solo bloque:
+// "Descripción ... Características ✅ punto ✅ punto ... Ideal para X. Y. Z.
+// IMPORTANT NOTICE • nota • nota ..."
+// Esta función lo separa en secciones para poder mostrarlo de forma legible,
+// en vez de un párrafo corrido. Si algún producto no sigue exactamente este
+// patrón, cae de vuelta a mostrar todo como intro (nunca se pierde texto).
+function parseProductDescription(raw: string) {
+  const NOTICE_MARKER = /IMPORTANT NOTICE/i;
+  const FEATURES_MARKER = /Características/i;
+  const IDEAL_MARKER = /Ideal para/i;
+
+  let intro = raw;
+  let featuresBlock = "";
+  let idealForBlock = "";
+  let noticeBlock = "";
+
+  const noticeMatch = raw.match(NOTICE_MARKER);
+  let beforeNotice = raw;
+
+  if (noticeMatch && noticeMatch.index !== undefined) {
+    beforeNotice = raw.slice(0, noticeMatch.index);
+    noticeBlock = raw.slice(noticeMatch.index + noticeMatch[0].length);
+  }
+
+  const featuresMatch = beforeNotice.match(FEATURES_MARKER);
+
+  if (featuresMatch && featuresMatch.index !== undefined) {
+    intro = beforeNotice.slice(0, featuresMatch.index);
+    const afterFeatures = beforeNotice.slice(
+      featuresMatch.index + featuresMatch[0].length
+    );
+
+    const idealMatch = afterFeatures.match(IDEAL_MARKER);
+
+    if (idealMatch && idealMatch.index !== undefined) {
+      featuresBlock = afterFeatures.slice(0, idealMatch.index);
+      idealForBlock = afterFeatures.slice(
+        idealMatch.index + idealMatch[0].length
+      );
+    } else {
+      featuresBlock = afterFeatures;
+    }
+  } else {
+    intro = beforeNotice;
+  }
+
+  intro = intro.replace(/^Descripción\s*/i, "").trim();
+
+  const features = featuresBlock
+    .split("✅")
+    .map((item) => item.trim().replace(/\.$/, ""))
+    .filter(Boolean);
+
+  const idealFor = idealForBlock
+    .split(".")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  const technicalNotes = noticeBlock
+    .split("•")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  return { intro, features, idealFor, technicalNotes };
+}
 
 export default function ProductInfo({
   id,
@@ -54,6 +120,13 @@ export default function ProductInfo({
     `Hola, tengo una pregunta sobre el producto "${title}".`
   );
 
+  const {
+    intro,
+    features,
+    idealFor,
+    technicalNotes,
+  } = parseProductDescription(description);
+
   return (
     <div>
       <h1 className="mb-6 text-5xl font-black">
@@ -75,9 +148,54 @@ export default function ProductInfo({
         </span>
       </div>
 
-      <p className="mb-10 text-lg leading-8 text-zinc-300">
-        {description}
-      </p>
+      {/* Descripción corta */}
+      {intro && (
+        <p className="mb-8 text-lg leading-8 text-zinc-300">
+          {intro}
+        </p>
+      )}
+
+      {/* Características, como lista real */}
+      {features.length > 0 && (
+        <div className="mb-8">
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-[#C8A04A]">
+            Características
+          </h2>
+          <ul className="space-y-2">
+            {features.map((feature, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-2 text-base text-zinc-300"
+              >
+                <CheckCircle2
+                  size={18}
+                  className="mt-0.5 shrink-0 text-[#C8A04A]"
+                />
+                <span>{feature}.</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Ideal para, como tags */}
+      {idealFor.length > 0 && (
+        <div className="mb-10">
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-[#C8A04A]">
+            Ideal para
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {idealFor.map((tag, index) => (
+              <span
+                key={index}
+                className="rounded-full border border-neutral-700 bg-neutral-900 px-3 py-1 text-xs font-medium text-zinc-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <VariantSelector
         variants={variants}
@@ -118,6 +236,26 @@ export default function ProductInfo({
         <PaymentBadges />
       </div>
 
+      {/* Notas técnicas, discretas y separadas */}
+      {technicalNotes.length > 0 && (
+        <div className="mt-5 rounded-xl border border-neutral-800 bg-neutral-950 p-4">
+          <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-neutral-500">
+            <Info size={14} />
+            Notas técnicas
+          </div>
+          <ul className="space-y-1">
+            {technicalNotes.map((note, index) => (
+              <li
+                key={index}
+                className="text-xs leading-relaxed text-neutral-500"
+              >
+                • {note}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Envío con seguimiento */}
       <div className="mt-5 flex items-start gap-3 text-sm text-neutral-300">
         <Truck
@@ -138,32 +276,33 @@ export default function ProductInfo({
       </div>
 
       {/* Cambios y devoluciones */}
-<div className="mt-5 flex items-start gap-3 text-sm text-neutral-300">
-  <span
-    className="mt-0.5 shrink-0 text-[20px] leading-none text-[#C8A04A]"
-    aria-hidden="true"
-  >
-    ↩
-  </span>
+      <div className="mt-5 flex items-start gap-3 text-sm text-neutral-300">
+        <span
+          className="mt-0.5 shrink-0 text-[20px] leading-none text-[#C8A04A]"
+          aria-hidden="true"
+        >
+          ↩
+        </span>
 
-  <div>
-    <p className="font-semibold text-white">
-      Cambios y devoluciones
-    </p>
+        <div>
+          <p className="font-semibold text-white">
+            Cambios y devoluciones
+          </p>
 
-    <p className="mt-1 text-neutral-400">
-      Si tu pedido llega defectuoso, incompleto, dañado o diferente al solicitado,
-      puedes contactarnos para revisar tu caso.
-    </p>
+          <p className="mt-1 text-neutral-400">
+            Si tu pedido llega defectuoso, incompleto, dañado o diferente al solicitado,
+            puedes contactarnos para revisar tu caso.
+          </p>
 
-    <a
-      href="/devoluciones"
-      className="mt-2 inline-block font-semibold text-[#C8A04A] transition hover:text-[#D7AF56]"
-    >
-      Consultar política de devoluciones →
-    </a>
-  </div>
-</div>
+          <a
+            href="/devoluciones"
+            className="mt-2 inline-block font-semibold text-[#C8A04A] transition hover:text-[#D7AF56]"
+          >
+            Consultar política de devoluciones →
+          </a>
+        </div>
+      </div>
+
       {/* Atención por WhatsApp */}
       <div className="mt-5 flex items-start gap-3 text-sm text-neutral-300">
         <MessageCircle

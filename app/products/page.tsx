@@ -25,22 +25,10 @@ export default async function ProductsPage({
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-7xl px-6 py-20">
-        <div className="mb-12">
-          <h1 className="text-4xl font-semibold tracking-tight">
-            Productos
-          </h1>
-
-          <p className="mt-3 text-white/60">
-            Descubre nuestra selección de productos.
-          </p>
-        </div>
-
-        <ProductsClient
-          products={products}
-          initialCategory={category || "Todos"}
-        />
-      </div>
+      <ProductsClient
+        products={products}
+        initialCategory={category || "Todos"}
+      />
     </main>
   );
 }

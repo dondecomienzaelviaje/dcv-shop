@@ -3,12 +3,13 @@
 import { useMemo, useState } from "react";
 
 import ProductGrid from "@/components/product/ProductGrid";
-import ProductFilters from "@/components/product/ProductFilters";
+import ProductsHero from "@/components/home/ProductsHero";
 
 type ShopifyProduct = {
   id: string;
   title: string;
   handle: string;
+  createdAt: string;
   featuredImage?: {
     url: string;
     altText?: string | null;
@@ -106,7 +107,7 @@ export default function ProductsClient({
 
   return (
     <>
-      <ProductFilters
+      <ProductsHero
         search={search}
         onSearchChange={setSearch}
         selectedCategory={selectedCategory}
@@ -115,9 +116,11 @@ export default function ProductsClient({
         onSortChange={setSortBy}
       />
 
-      <ProductGrid
-        products={filteredProducts}
-      />
+      <div className="mx-auto max-w-7xl px-6 py-20">
+        <ProductGrid
+          products={filteredProducts}
+        />
+      </div>
     </>
   );
 }

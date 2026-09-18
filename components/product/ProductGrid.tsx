@@ -4,6 +4,7 @@ type ShopifyProduct = {
   id: string;
   title: string;
   handle: string;
+  createdAt: string;
   featuredImage?: {
     url: string;
     altText?: string | null;
@@ -19,6 +20,16 @@ type ShopifyProduct = {
 type ProductGridProps = {
   products: ShopifyProduct[];
 };
+
+const NEW_THRESHOLD_DAYS = 30;
+
+function isRecentlyCreated(createdAt: string) {
+  const createdTime = new Date(createdAt).getTime();
+  const daysSinceCreated =
+    (Date.now() - createdTime) / (1000 * 60 * 60 * 24);
+
+  return daysSinceCreated <= NEW_THRESHOLD_DAYS;
+}
 
 export default function ProductGrid({
   products,
@@ -38,6 +49,7 @@ export default function ProductGrid({
               product.featuredImage?.url ??
               "/placeholder-product.png"
             }
+            isNew={isRecentlyCreated(product.createdAt)}
           />
         ))}
       </div>

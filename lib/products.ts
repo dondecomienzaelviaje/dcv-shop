@@ -10,6 +10,7 @@ query GetProducts($country: CountryCode!) @inContext(country: $country) {
       productType
       tags
       description
+      createdAt
 
       featuredImage {
         url
@@ -67,6 +68,7 @@ query GetProduct($handle: String!, $country: CountryCode!) @inContext(country: $
     productType
     tags
     description
+    createdAt
 
     featuredImage {
       url

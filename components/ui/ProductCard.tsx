@@ -9,6 +9,7 @@ type ProductCardProps = {
   usdCents: number;
   image: string;
   handle: string;
+  isNew?: boolean;
 };
 
 export default function ProductCard({
@@ -16,6 +17,7 @@ export default function ProductCard({
   usdCents,
   image,
   handle,
+  isNew = false,
 }: ProductCardProps) {
   return (
     <article className="group overflow-hidden rounded-3xl border border-white/10 bg-[#111] transition-all duration-300 hover:-translate-y-1 hover:border-[#C8A04A]/70 hover:shadow-2xl">
@@ -23,6 +25,12 @@ export default function ProductCard({
       {/* Imagen */}
       <Link href={`/products/${handle}`} className="block">
         <div className="relative h-64 overflow-hidden bg-white sm:h-72">
+          {isNew && (
+            <span className="absolute left-3 top-3 z-10 rounded-full bg-[#C8A04A] px-3 py-1 text-xs font-bold text-black">
+              Nuevo
+            </span>
+          )}
+
           <Image
             src={image}
             alt={title}

@@ -36,12 +36,12 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section className="bg-black py-24 text-white">
+    <section className="bg-white py-24 text-neutral-950">
       <Container>
         <SectionTitle
-          badge="¿POR QUÉ ELEGIR DCV SHOP?"
-          title="Compra con confianza. Crece con propósito."
-          description="Seleccionamos productos pensados para acompañarte en tu día a día, con una experiencia de compra clara, seguimiento de tus pedidos y atención directa."
+          badge="TU EXPERIENCIA DCV"
+          title="Compra con confianza."
+          description="Queremos que tu experiencia con DCV sea clara, segura y sencilla desde el momento en que descubres nuestros productos hasta que los recibes."
         />
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -51,7 +51,7 @@ export default function Benefits() {
             return (
               <div
                 key={benefit.title}
-                className="min-h-[380px] rounded-3xl border border-neutral-800 bg-neutral-900 p-8 transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500 hover:shadow-xl"
+                className="min-h-[380px] rounded-3xl border border-neutral-200 bg-neutral-50 p-8 transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500 hover:shadow-xl"
               >
                 <div className="inline-flex rounded-2xl bg-yellow-500/10 p-5">
                   <Icon
@@ -60,11 +60,11 @@ export default function Benefits() {
                   />
                 </div>
 
-                <h3 className="mt-6 text-2xl font-bold text-white">
+                <h3 className="mt-6 text-2xl font-bold text-neutral-950">
                   {benefit.title}
                 </h3>
 
-                <p className="mt-5 leading-7 text-neutral-300">
+                <p className="mt-5 leading-7 text-neutral-600">
                   {benefit.description}
                 </p>
               </div>

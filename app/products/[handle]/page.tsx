@@ -18,7 +18,10 @@ export async function generateMetadata({
   const country =
     (await cookies()).get("country")?.value || "CO";
 
-  const product = await getProduct(handle, country);
+  const product = await getProduct(
+    handle,
+    country
+  );
 
   if (!product) {
     return {
@@ -37,7 +40,11 @@ export async function generateMetadata({
       title: product.title,
       description,
       images: product.featuredImage?.url
-        ? [{ url: product.featuredImage.url }]
+        ? [
+            {
+              url: product.featuredImage.url,
+            },
+          ]
         : undefined,
     },
   };
@@ -51,7 +58,10 @@ export default async function ProductPage({
   const country =
     (await cookies()).get("country")?.value || "CO";
 
-  const product = await getProduct(handle, country);
+  const product = await getProduct(
+    handle,
+    country
+  );
 
   if (!product) {
     return (
@@ -76,6 +86,9 @@ export default async function ProductPage({
           image={product.featuredImage?.url ?? ""}
           variants={product.variants.nodes}
           deliveryType={product.deliveryType}
+          rating={product.rating}
+          ratingCount={product.ratingCount}
+          availability={product.availability}
         />
       </div>
     </main>

@@ -6,10 +6,22 @@ import { Search } from "lucide-react";
 // Mismas fotos del hero de inicio — mantiene la identidad visual entre
 // Inicio y Tienda. Exportadas a 2400x1350px (16:9) en /public/images/hero/.
 const slides = [
-  { src: "/images/hero/botella.webp", alt: "Botella térmica DCV — Disciplina" },
-  { src: "/images/hero/difusor-aceite.webp", alt: "Difusor y aceite esencial DCV — Mentalidad" },
-  { src: "/images/hero/libreta.webp", alt: "Agenda DCV 90 — Hábitos" },
-  { src: "/images/hero/organizador.webp", alt: "Organizador de escritorio DCV — Éxito" },
+  {
+    src: "/images/hero/botella.webp",
+    alt: "Botellón DCV — Disciplina",
+  },
+  {
+    src: "/images/pilares/mentalidad/focus-board-hero.webp",
+    alt: "DCV Focus Board — Mentalidad",
+  },
+  {
+    src: "/images/hero/libreta.webp",
+    alt: "Agenda DCV 90 — Hábitos",
+  },
+  {
+    src: "/images/pilares/crecimiento/dcv-progress-hero.webp",
+    alt: "DCV Progress — Crecimiento",
+  },
 ];
 
 const INTERVAL_MS = 4000;

@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+
 import Container from "@/components/ui/Container";
 import ProductCard from "@/components/ui/ProductCard";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -12,9 +13,9 @@ export default async function FeaturedProducts() {
     <section className="bg-neutral-950 py-32 text-white">
       <Container>
         <SectionTitle
-          badge="PRODUCTOS DESTACADOS"
-          title="Nuestros Productos"
-          description="Productos seleccionados para potenciar tu estilo de vida, productividad y crecimiento."
+          badge="TIENDA DCV"
+          title="Productos para acompañar tu camino"
+          description="Explora los productos disponibles de DCV y encuentra herramientas creadas para acompañar tu proceso."
         />
 
         <div className="mt-20 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -30,8 +31,22 @@ export default async function FeaturedProducts() {
                 product.featuredImage?.url ||
                 "/placeholder-product.png"
               }
+              rating={product.rating}
+              availableForSale={
+                product.availability?.availableForSale ?? false
+              }
             />
           ))}
+        </div>
+
+        <div className="mt-16 flex justify-center">
+          <a
+            href="/products"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-7 py-4 text-sm font-bold text-white transition hover:border-[#C8A04A] hover:text-[#C8A04A]"
+          >
+            Explorar todos los productos
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
       </Container>
     </section>

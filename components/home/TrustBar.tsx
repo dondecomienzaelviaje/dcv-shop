@@ -1,14 +1,11 @@
-import { Truck, ShieldCheck, PackageSearch, MessageCircle } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import {
+  Truck,
+  ShieldCheck,
+  PackageSearch,
+  MessageCircle,
+} from "lucide-react";
 
-// Barra de confianza — va justo debajo del hero.
-// Pensada para una tienda nueva sin historial de ventas todavía.
-//
-// Ajusta los 4 items según tus políticas reales antes de publicar:
-// - envío: plazo o condición real (ej. "Envío en 24-48h" o "Envío gratis desde $X")
-// - devoluciones: tu política real de cambios/devoluciones
-// - pago: los métodos que realmente aceptas
-// - catálogo: lo que mejor te represente (marcas, curaduría, variedad)
+import type { LucideIcon } from "lucide-react";
 
 type TrustItem = {
   icon: LucideIcon;
@@ -29,8 +26,8 @@ const items: TrustItem[] = [
   },
   {
     icon: PackageSearch,
-    title: "Catálogo curado",
-    detail: "Productos seleccionados",
+    title: "Productos DCV",
+    detail: "Objetos creados para acompañar tu proceso",
   },
   {
     icon: MessageCircle,
@@ -41,19 +38,27 @@ const items: TrustItem[] = [
 
 export default function TrustBar() {
   return (
-    <section className="bg-white border-y border-neutral-200">
-      <div className="max-w-6xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+    <section className="border-y border-neutral-200 bg-white">
+      <div className="mx-auto max-w-6xl px-6 py-8">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
           {items.map(({ icon: Icon, title, detail }) => (
-            <div key={title} className="flex items-start gap-3">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-[#F0A93A]/10 flex items-center justify-center">
-                <Icon className="w-5 h-5 text-[#F0A93A]" strokeWidth={1.75} />
+            <div
+              key={title}
+              className="flex items-start gap-3"
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F0A93A]/10">
+                <Icon
+                  className="h-5 w-5 text-[#F0A93A]"
+                  strokeWidth={1.75}
+                />
               </div>
+
               <div>
-                <p className="text-sm font-medium text-neutral-900 leading-tight">
+                <p className="text-sm font-medium leading-tight text-neutral-900">
                   {title}
                 </p>
-                <p className="text-sm text-neutral-500 leading-tight mt-0.5">
+
+                <p className="mt-0.5 text-sm leading-tight text-neutral-500">
                   {detail}
                 </p>
               </div>

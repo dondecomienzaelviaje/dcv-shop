@@ -26,6 +26,12 @@ type Props = {
   description: string;
   image: string;
   deliveryType: DeliveryType;
+  rating?: number | null;
+  ratingCount?: number | null;
+  availability: {
+    availableForSale: boolean;
+    totalQuantity: number;
+  };
 };
 
 function parseProductDescription(raw: string) {
@@ -135,6 +141,9 @@ export default function ProductInfo({
   description,
   image,
   deliveryType,
+  rating = null,
+  ratingCount = null,
+  availability,
 }: Props) {
   const addItem = useCartStore(
     (state) => state.addItem
@@ -176,14 +185,64 @@ export default function ProductInfo({
     technicalNotes,
   } = parseProductDescription(description);
 
+  const isProductAvailable =
+    availability.availableForSale;
+
+  const isVariantAvailable =
+    selectedVariant.availableForSale;
+
   return (
     <div>
+      {/* TÍTULO */}
       <h1 className="mb-6 text-5xl font-black">
         {title}
       </h1>
 
+      {/* PRECIO */}
       <div className="mb-4">
         <DualPrice usdCents={usdCents} />
+      </div>
+
+      {/* RATING + DISPONIBILIDAD */}
+      <div className="mb-8 flex flex-wrap items-center gap-4">
+        {rating !== null && (
+          <div className="flex items-center gap-2">
+            <span
+              className="text-lg text-[#C8A04A]"
+              aria-hidden="true"
+            >
+              ★
+            </span>
+
+            <span className="font-bold text-white">
+              {rating.toFixed(1)}/5
+            </span>
+
+            {ratingCount !== null && ratingCount > 0 && (
+              <span className="text-sm text-neutral-400">
+                ({ratingCount}{" "}
+                {ratingCount === 1
+                  ? "reseña"
+                  : "reseñas"}
+                )
+              </span>
+            )}
+          </div>
+        )}
+
+        <span className="h-4 w-px bg-neutral-700" />
+
+        <div
+          className={
+            isProductAvailable
+              ? "text-sm font-semibold text-emerald-400"
+              : "text-sm font-semibold text-red-400"
+          }
+        >
+          {isProductAvailable
+            ? "✓ En stock"
+            : "Agotado"}
+        </div>
       </div>
 
       {/* INFORMACIÓN DE ENTREGA */}
@@ -303,12 +362,23 @@ export default function ProductInfo({
         }}
       />
 
+      {/* DISPONIBILIDAD DE LA VARIANTE */}
+      <div className="mt-4">
+        {isVariantAvailable ? (
+          <p className="text-sm font-medium text-emerald-400">
+            ✓ Esta variante está disponible
+          </p>
+        ) : (
+          <p className="text-sm font-medium text-red-400">
+            Esta variante está agotada
+          </p>
+        )}
+      </div>
+
       {/* AÑADIR AL CARRITO */}
       <button
         type="button"
-        disabled={
-          !selectedVariant.availableForSale
-        }
+        disabled={!isVariantAvailable}
         onClick={() => {
           addItem({
             id,
@@ -333,7 +403,7 @@ export default function ProductInfo({
         }}
         className="w-full rounded-xl bg-[#C8A04A] px-10 py-4 font-bold text-black transition hover:bg-[#D7AF56] disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {selectedVariant.availableForSale
+        {isVariantAvailable
           ? "Añadir al carrito"
           : "Agotado"}
       </button>

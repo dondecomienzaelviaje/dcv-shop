@@ -35,21 +35,24 @@ export default function Navbar() {
         <Container>
           <div className="flex h-24 items-center justify-between">
 
-            <Logo />
+            <div className="flex items-center pr-8">
+              <Logo />
+            </div>
 
-            <nav className="hidden items-center gap-12 text-lg font-semibold md:flex">
+            <nav className="hidden items-center gap-10 md:flex">
               {primaryNavigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="transition duration-300 hover:text-[#C8A04A]"
+                  className="group relative py-2 text-sm font-medium uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:text-[#C8A04A]"
                 >
                   {item.name}
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-[#C8A04A] transition-all duration-300 ease-out group-hover:w-full" />
                 </Link>
               ))}
             </nav>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 pl-8">
 
               <button
                 onClick={() => setMenuOpen(true)}

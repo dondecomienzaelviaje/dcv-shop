@@ -34,6 +34,35 @@ type Props = {
   };
 };
 
+/**
+ * Muestra 5 estrellas, rellenando doradas proporcionalmente al rating
+ * (ej: 3.7/5 -> 3 estrellas llenas + la 4ta parcialmente rellena).
+ */
+function StarRating({ rating, size = "text-lg" }: { rating: number; size?: string }) {
+  const percentage = Math.max(0, Math.min(100, (rating / 5) * 100));
+
+  return (
+    <div className={`relative inline-flex leading-none ${size}`}>
+      {/* Estrellas vacías (fondo) */}
+      <div className="flex gap-0.5 text-neutral-700">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <span key={i}>★</span>
+        ))}
+      </div>
+
+      {/* Estrellas doradas, recortadas según el % del rating */}
+      <div
+        className="absolute inset-0 flex gap-0.5 overflow-hidden text-[#C8A04A]"
+        style={{ width: `${percentage}%` }}
+      >
+        {Array.from({ length: 5 }).map((_, i) => (
+          <span key={i}>★</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function parseProductDescription(raw: string) {
   const NOTICE_MARKER = /IMPORTANT NOTICE/i;
   const FEATURES_MARKER = /Características/i;
@@ -207,12 +236,7 @@ export default function ProductInfo({
       <div className="mb-8 flex flex-wrap items-center gap-4">
         {rating !== null && (
           <div className="flex items-center gap-2">
-            <span
-              className="text-lg text-[#C8A04A]"
-              aria-hidden="true"
-            >
-              ★
-            </span>
+            <StarRating rating={rating} />
 
             <span className="font-bold text-white">
               {rating.toFixed(1)}/5
@@ -232,16 +256,26 @@ export default function ProductInfo({
 
         <span className="h-4 w-px bg-neutral-700" />
 
-        <div
-          className={
-            isProductAvailable
-              ? "text-sm font-semibold text-emerald-400"
-              : "text-sm font-semibold text-red-400"
-          }
-        >
-          {isProductAvailable
-            ? "✓ En stock"
-            : "Agotado"}
+        <div className="flex items-center gap-2">
+          <span
+            className={`h-1.5 w-1.5 rounded-full ${
+              isProductAvailable
+                ? "bg-emerald-400"
+                : "bg-red-400"
+            }`}
+          />
+
+          <span
+            className={
+              isProductAvailable
+                ? "text-sm font-semibold text-emerald-400"
+                : "text-sm font-semibold text-red-400"
+            }
+          >
+            {isProductAvailable
+              ? "En stock"
+              : "Agotado"}
+          </span>
         </div>
       </div>
 
@@ -363,16 +397,26 @@ export default function ProductInfo({
       />
 
       {/* DISPONIBILIDAD DE LA VARIANTE */}
-      <div className="mt-4">
-        {isVariantAvailable ? (
-          <p className="text-sm font-medium text-emerald-400">
-            ✓ Esta variante está disponible
-          </p>
-        ) : (
-          <p className="text-sm font-medium text-red-400">
-            Esta variante está agotada
-          </p>
-        )}
+      <div className="mt-4 flex items-center gap-2">
+        <span
+          className={`h-1.5 w-1.5 rounded-full ${
+            isVariantAvailable
+              ? "bg-emerald-400"
+              : "bg-red-400"
+          }`}
+        />
+
+        <p
+          className={
+            isVariantAvailable
+              ? "text-sm font-medium text-emerald-400"
+              : "text-sm font-medium text-red-400"
+          }
+        >
+          {isVariantAvailable
+            ? "Esta variante está disponible"
+            : "Esta variante está agotada"}
+        </p>
       </div>
 
       {/* AÑADIR AL CARRITO */}

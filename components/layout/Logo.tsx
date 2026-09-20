@@ -8,12 +8,12 @@ export default function Logo() {
       className="flex items-center"
     >
       <Image
-        src="/logo/logo-dcv.png"
+        src="/logo/logo-dcv-wordmark.png"
         alt="DCV"
-        width={170}
-        height={60}
+        width={149}
+        height={118}
         priority
-        className="h-auto w-[150px] object-contain"
+        className="h-11 w-auto object-contain sm:h-12"
       />
     </Link>
   );

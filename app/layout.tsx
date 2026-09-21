@@ -56,6 +56,11 @@ export const metadata: Metadata = {
     follow: true,
   },
 
+  // Verificación de propiedad en Google Search Console.
+  verification: {
+    google: "MezYeb4rD1kKpb_faZdIVbsWoCr0o2uSGEpBj_aAyyk",
+  },
+
   openGraph: {
     type: "website",
     locale: "es_CO",

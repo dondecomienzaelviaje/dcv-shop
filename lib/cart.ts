@@ -6,10 +6,11 @@ type ShopifyCartLine = {
 };
 
 const CREATE_CART_MUTATION = `
-mutation CreateCart($lines: [CartLineInput!]) {
+mutation CreateCart($lines: [CartLineInput!], $attributes: [AttributeInput!]) {
   cartCreate(
     input: {
       lines: $lines
+      attributes: $attributes
     }
   ) {
     cart {
@@ -26,7 +27,8 @@ mutation CreateCart($lines: [CartLineInput!]) {
 `;
 
 export async function createShopifyCart(
-  lines: ShopifyCartLine[]
+  lines: ShopifyCartLine[],
+  dcvUserId?: string | null
 ) {
   const validLines = lines.filter(
     (line) =>
@@ -42,10 +44,17 @@ export async function createShopifyCart(
     );
   }
 
+  // Solo mandamos el atributo si el usuario está logueado.
+  // Si no, el carrito se crea igual, sin este dato (compra como invitado).
+  const attributes = dcvUserId
+    ? [{ key: "dcv_user_id", value: dcvUserId }]
+    : [];
+
   const data = await shopifyFetch(
     CREATE_CART_MUTATION,
     {
       lines: validLines,
+      attributes,
     }
   );
 

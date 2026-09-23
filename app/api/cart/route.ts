@@ -5,7 +5,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const { lines } = body;
+    const { lines, dcvUserId } = body;
 
     if (!Array.isArray(lines) || lines.length === 0) {
       return NextResponse.json(
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const result = await createShopifyCart(lines);
+    const result = await createShopifyCart(lines, dcvUserId ?? null);
 
     if (result.userErrors.length > 0) {
       return NextResponse.json(

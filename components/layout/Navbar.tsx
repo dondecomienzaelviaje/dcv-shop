@@ -8,6 +8,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 
 import Container from "@/components/ui/Container";
 import CartDrawer from "@/components/cart/CartDrawer";
@@ -79,6 +80,19 @@ export default function Navbar() {
                 </span>
 
               </button>
+
+              {/* Login opcional con DCV ID — no bloquea la compra, solo permite ganar Puntos DCV */}
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <button className="hidden text-sm font-medium uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:text-[#C8A04A] md:block">
+                    Iniciar sesión
+                  </button>
+                </SignInButton>
+              </Show>
+
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
 
             </div>
 
@@ -162,7 +176,27 @@ export default function Navbar() {
 
             </nav>
 
-            <div className="mt-12">
+            {/* Login opcional también en el menú móvil */}
+            <div className="mt-6 border-t border-neutral-800 pt-6">
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <button
+                    onClick={() => setMenuOpen(false)}
+                    className="block w-full rounded-lg px-4 py-2 text-left text-sm text-neutral-400 transition-all duration-300 hover:bg-white/5 hover:text-[#C8A04A]"
+                  >
+                    Iniciar sesión con DCV ID
+                  </button>
+                </SignInButton>
+              </Show>
+              <Show when="signed-in">
+                <div className="flex items-center gap-3 px-4 py-2">
+                  <UserButton />
+                  <span className="text-sm text-neutral-400">Tu cuenta DCV</span>
+                </div>
+              </Show>
+            </div>
+
+            <div className="mt-8">
 
               <Link
                 href="/products"

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
 import {
   ShoppingCart,
   X,
@@ -32,6 +33,8 @@ export default function CartDrawer({
     decreaseQuantity,
   } = useCartStore();
 
+  const { user } = useUser();
+
   const [loading, setLoading] = useState(false);
 
   async function handleCheckout() {
@@ -48,6 +51,7 @@ export default function CartDrawer({
             merchandiseId: item.variantId,
             quantity: item.quantity,
           })),
+          dcvUserId: user?.id ?? null,
         }),
       });
 
@@ -69,8 +73,7 @@ export default function CartDrawer({
   }
 
   const subtotal = items.reduce(
-    (total, item) =>
-      total + item.price * item.quantity,
+    (total, item) => total + item.price * item.quantity,
     0
   );
 
@@ -79,8 +82,7 @@ export default function CartDrawer({
   );
 
   const hasInternationalDelivery = items.some(
-    (item) =>
-      item.deliveryType === "international"
+    (item) => item.deliveryType === "international"
   );
 
   const hasMixedDelivery =
@@ -90,22 +92,16 @@ export default function CartDrawer({
 
   return (
     <>
-      {/* Fondo */}
       <div
         onClick={onClose}
         className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm"
       />
 
-      {/* Carrito */}
       <aside className="fixed right-0 top-0 z-[100] flex h-screen w-full max-w-[420px] flex-col bg-neutral-950 shadow-2xl">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-neutral-800 p-6">
           <div className="flex items-center gap-3">
             <ShoppingCart className="text-[#C8A04A]" />
-
-            <h2 className="text-xl font-bold text-white">
-              Mi carrito
-            </h2>
+            <h2 className="text-xl font-bold text-white">Mi carrito</h2>
           </div>
 
           <button
@@ -119,28 +115,20 @@ export default function CartDrawer({
         </div>
 
         {items.length === 0 ? (
-          /* Carrito vacío */
           <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
-            <ShoppingCart
-              size={70}
-              className="text-[#C8A04A]"
-            />
-
+            <ShoppingCart size={70} className="text-[#C8A04A]" />
             <h3 className="mt-6 text-2xl font-bold text-white">
               Tu carrito está vacío
             </h3>
-
             <p className="mt-3 max-w-xs text-gray-400">
               Agrega productos para comenzar tu viaje.
             </p>
           </div>
         ) : (
           <>
-            {/* Productos */}
             <div className="flex-1 space-y-5 overflow-y-auto p-6">
               {items.map((item) => {
-                const isLocal =
-                  item.deliveryType === "local";
+                const isLocal = item.deliveryType === "local";
 
                 return (
                   <div
@@ -148,7 +136,6 @@ export default function CartDrawer({
                     className="rounded-2xl border border-neutral-800 p-4"
                   >
                     <div className="flex gap-4">
-                      {/* Imagen */}
                       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
                         <Image
                           src={item.image}
@@ -158,7 +145,6 @@ export default function CartDrawer({
                         />
                       </div>
 
-                      {/* Información */}
                       <div className="flex min-w-0 flex-1 flex-col">
                         <h4 className="line-clamp-2 font-bold text-white">
                           {item.title}
@@ -166,21 +152,14 @@ export default function CartDrawer({
 
                         <div className="mt-1">
                           <DualPrice
-                            usdCents={Math.round(
-                              item.price * 100
-                            )}
+                            usdCents={Math.round(item.price * 100)}
                           />
                         </div>
 
-                        {/* Cantidad */}
                         <div className="mt-4 flex items-center gap-2">
                           <button
                             type="button"
-                            onClick={() =>
-                              decreaseQuantity(
-                                item.variantId
-                              )
-                            }
+                            onClick={() => decreaseQuantity(item.variantId)}
                             aria-label="Disminuir cantidad"
                             className="rounded-lg bg-neutral-800 p-2 text-white transition hover:bg-neutral-700"
                           >
@@ -193,11 +172,7 @@ export default function CartDrawer({
 
                           <button
                             type="button"
-                            onClick={() =>
-                              increaseQuantity(
-                                item.variantId
-                              )
-                            }
+                            onClick={() => increaseQuantity(item.variantId)}
                             aria-label="Aumentar cantidad"
                             className="rounded-lg bg-neutral-800 p-2 text-white transition hover:bg-neutral-700"
                           >
@@ -206,11 +181,7 @@ export default function CartDrawer({
 
                           <button
                             type="button"
-                            onClick={() =>
-                              removeItem(
-                                item.variantId
-                              )
-                            }
+                            onClick={() => removeItem(item.variantId)}
                             aria-label="Eliminar producto"
                             className="ml-auto text-red-500 transition hover:text-red-400"
                           >
@@ -220,7 +191,6 @@ export default function CartDrawer({
                       </div>
                     </div>
 
-                    {/* Modalidad de entrega */}
                     <div
                       className={`mt-4 flex items-start gap-3 rounded-xl border px-3 py-3 ${
                         isLocal
@@ -242,9 +212,7 @@ export default function CartDrawer({
 
                       <div>
                         <p className="text-xs font-bold text-white">
-                          {isLocal
-                            ? "Entrega local"
-                            : "Envío internacional"}
+                          {isLocal ? "Entrega local" : "Envío internacional"}
                         </p>
 
                         <p className="mt-1 text-xs leading-5 text-neutral-400">
@@ -258,26 +226,19 @@ export default function CartDrawer({
                 );
               })}
 
-              {/* Aviso para pedidos mixtos */}
               {hasMixedDelivery && (
                 <div className="rounded-2xl border border-[#C8A04A]/30 bg-[#C8A04A]/5 p-4">
                   <div className="flex items-start gap-3">
-                    <Truck
-                      size={20}
-                      className="mt-0.5 shrink-0 text-[#C8A04A]"
-                    />
+                    <Truck size={20} className="mt-0.5 shrink-0 text-[#C8A04A]" />
 
                     <div>
                       <p className="text-sm font-bold text-white">
-                        Tu pedido tiene diferentes
-                        modalidades de entrega
+                        Tu pedido tiene diferentes modalidades de entrega
                       </p>
 
                       <p className="mt-1 text-xs leading-5 text-neutral-400">
-                        Algunos productos pueden
-                        llegar por separado porque
-                        tienen tiempos de entrega
-                        diferentes.
+                        Algunos productos pueden llegar por separado porque
+                        tienen tiempos de entrega diferentes.
                       </p>
                     </div>
                   </div>
@@ -285,7 +246,6 @@ export default function CartDrawer({
               )}
             </div>
 
-            {/* Resumen */}
             <div className="border-t border-neutral-800 p-6">
               <div className="mb-5">
                 <p className="text-sm font-medium uppercase tracking-wide text-neutral-400">
@@ -293,11 +253,7 @@ export default function CartDrawer({
                 </p>
 
                 <div className="mt-1">
-                  <DualPrice
-                    usdCents={Math.round(
-                      subtotal * 100
-                    )}
-                  />
+                  <DualPrice usdCents={Math.round(subtotal * 100)} />
                 </div>
               </div>
 
@@ -309,9 +265,7 @@ export default function CartDrawer({
                 disabled={loading}
                 className="w-full rounded-xl bg-[#C8A04A] py-4 font-bold text-black transition hover:bg-[#D7AF56] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {loading
-                  ? "Redirigiendo..."
-                  : "Finalizar compra"}
+                {loading ? "Redirigiendo..." : "Finalizar compra"}
               </button>
             </div>
           </>

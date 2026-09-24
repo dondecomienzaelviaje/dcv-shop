@@ -259,6 +259,22 @@ export default function CartDrawer({
 
               <PaymentBadges className="mb-4 justify-center" />
 
+              {/* Mensaje de Puntos DCV — usa el `user` que ya tienes de useUser() */}
+              {user ? (
+                <div className="mb-4 flex items-center gap-2 rounded-lg border border-[#C8A04A]/30 bg-[#C8A04A]/5 px-3 py-2">
+                  <span className="text-sm text-[#C8A04A]">✓</span>
+                  <p className="text-xs text-neutral-300">
+                    Ganarás <span className="font-semibold text-[#C8A04A]">Puntos DCV</span> con esta compra
+                  </p>
+                </div>
+              ) : (
+                <div className="mb-4 rounded-lg border border-neutral-800 bg-neutral-900/50 px-3 py-2">
+                  <p className="text-xs text-neutral-400">
+                    Inicia sesión con tu DCV ID para ganar Puntos DCV con esta compra
+                  </p>
+                </div>
+              )}
+
               <button
                 type="button"
                 onClick={handleCheckout}

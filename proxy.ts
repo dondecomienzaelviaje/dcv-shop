@@ -1,7 +1,7 @@
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export default function proxy(request: NextRequest) {
+export default clerkMiddleware((auth, request) => {
   // Vercel inyecta este header con el país del visitante, detectado por IP.
   const country = request.headers.get("x-vercel-ip-country") || "CO";
 
@@ -12,8 +12,8 @@ export default function proxy(request: NextRequest) {
   });
 
   return response;
-}
+});
 
 export const config = {
-  matcher: "/((?!_next/static|_next/image|favicon.ico).*)",
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)", "/(api|trpc)(.*)"],
 };
